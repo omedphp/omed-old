@@ -1,0 +1,31 @@
+{
+    "name": "omed/component",
+    "description": "Omed Component Library",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Anthonius Munthi",
+            "email": "me@itstoni.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "config": {
+        "sort-packages": true,
+        "preferred-install": "dist"
+    },
+    "autoload": {
+        "psr-4": {
+            "Omed\\Component\\": "src/"
+        }
+    },
+    "require": {
+        "php": ">=7.2",
+        "doctrine/collections": "^1.6",
+        "doctrine/orm": "^2.7"
+    },
+    "require-dev": {
+        "phpspec/phpspec": "^6.2"
+    }
+}

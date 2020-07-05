@@ -1,0 +1,8 @@
+spec_prefix: Spec
+suites:
+  omed_component:
+    namespace: Omed\Component\User
+    psr4_prefix: Omed\Component\User
+    spec_path: src/User
+    src_path: src/User
+    spec_prefix: Spec
