@@ -65,7 +65,7 @@ jobs:
         run: vendor/bin/phpstan analyse --ansi
 
   phpunit:
-    name: PHPUnit PHP-${{ matrix.php }}) ${{ matrix.dependency-version }}
+    name: Test PHP-${{ matrix.php }}) ${{ matrix.dependency-version }}
     runs-on: ubuntu-latest
     container:
       image: php:${{ matrix.php }}-alpine
@@ -81,6 +81,7 @@ jobs:
         dependency-version: [prefer-lowest, prefer-stable]
         include:
           - php: '7.4'
+            dependency-version: prefer-stable
             coverage: true
       fail-fast: false
     timeout-minutes: 20
