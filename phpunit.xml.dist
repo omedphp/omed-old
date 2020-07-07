@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit backupGlobals="false"
+         backupStaticAttributes="false"
+         beStrictAboutTestsThatDoNotTestAnything="true"
+         beStrictAboutOutputDuringTests="true"
+         bootstrap="vendor/autoload.php"
+         colors="true"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         failOnRisky="true"
+         failOnWarning="true"
+         processIsolation="false"
+         stopOnError="false"
+         stopOnFailure="false"
+         verbose="true"
+>
+    <php>
+        <env name="JWT_SECRET" value="helloworld"/>
+    </php>
+    <testsuites>
+        <testsuite name="Omed Component Test Suite">
+            <directory suffix="Test.php">./src/Component/*/Tests</directory>
+        </testsuite>
+        <testsuite name="Omed Laravel Test Suite">
+            <directory suffix="Test.php">./src/Laravel/*/*/Tests</directory>
+        </testsuite>
+    </testsuites>
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">./src</directory>
+            <exclude>
+                <directory>./src/*/*/Test</directory>
+                <directory>./src/*/*/Spec</directory>
+                <directory>./src/*/*/Tests</directory>
+                <directory>./src/*/*/*/Resources</directory>
+                <directory>./src/*/*/*/Spec</directory>
+                <directory>./src/*/*/*/Tests</directory>
+            </exclude>
+        </whitelist>
+    </filter>
+</phpunit>

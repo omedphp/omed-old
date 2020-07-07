@@ -1,5 +1,5 @@
 {
-    "name": "omed/component",
+    "name": "omed/omed",
     "description": "Omed Component Library",
     "type": "library",
     "license": "MIT",
@@ -17,15 +17,29 @@
     },
     "autoload": {
         "psr-4": {
-            "Omed\\Component\\": "src/"
+            "Omed\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Spec\\Omed\\Component\\User\\": "src/Component/User/Spec",
+            "Tests\\Omed\\Component\\User\\": "src/Component/User/Tests",
+            "Spec\\Omed\\Laravel\\API\\User\\": "src/Laravel/API/User/Spec",
+            "Tests\\Omed\\Laravel\\API\\User\\": "src/Laravel/API/User/Tests"
         }
     },
     "require": {
         "php": ">=7.2",
         "doctrine/collections": "^1.6",
-        "doctrine/orm": "^2.7"
+        "doctrine/orm": "^2.6",
+        "illuminate/auth": "^5.8|^6.0|^7.0",
+        "laravel-doctrine/orm": "^1.4|^1.5|^1.6"
     },
     "require-dev": {
-        "phpspec/phpspec": "^6.2"
+        "doctrine/data-fixtures": "^1.4",
+        "friendsofphp/php-cs-fixer": "^2.16",
+        "orchestra/testbench": "^3.8|^4.0|^5.0",
+        "phpspec/phpspec": "^6.2",
+        "phpunit/phpunit": "^8.0|^9.0"
     }
 }
