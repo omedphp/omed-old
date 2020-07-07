@@ -1,0 +1,14 @@
+parameters:
+	level: 5
+	paths:
+		- src
+	inferPrivatePropertyTypeFromConstructor: true
+	excludes_analyse:
+		- Resources
+		- Spec
+		- Tests
+		- src/Laravel/API/User/Model/Resource
+		- src/Component/User/Spec
+	earlyTerminatingMethodCalls:
+		PHPUnit\Framework\Constraint\Constraint:
+			- fail
