@@ -25,8 +25,8 @@ class UserControllerTest extends UserTestCase
 
     public function testIndex()
     {
-        /** @var \Omed\Component\User\Manager\UserManager $manager */
         $app = $this->app;
+        /** @var \Omed\Component\User\Manager\UserManager $manager */
         $manager = $app->get('omed.managers.user');
 
         $user = $manager->createUser();

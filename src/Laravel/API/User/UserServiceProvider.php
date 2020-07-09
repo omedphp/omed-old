@@ -48,7 +48,7 @@ class UserServiceProvider extends ServiceProvider
             $fieldsUpdater = new CanonicalFieldsUpdater($canonicalizer, $canonicalizer);
             $userClass = config('omed_user.models.user');
 
-            $encoderFactory = new EncoderFactory([$userClass => [
+            $encoderFactory = new EncoderFactory(['user' => [
                 'algorithm' => 'native',
                 'cost' => 12,
             ]]);
