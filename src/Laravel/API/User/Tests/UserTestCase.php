@@ -55,8 +55,10 @@ class UserTestCase extends OrchestraTestCase
             'prefix' => '',
         ]);
 
+        $defPath = sys_get_temp_dir().'/omed-user/foo-model';
+        mkdir($defPath,0777,true);
         $app['config']->set('doctrine.managers.default.connection', 'sqlite');
-        $app['config']->set('doctrine.managers.default.paths', [__DIR__.'/Resources']);
+        $app['config']->set('doctrine.managers.default.paths', [$defPath]);
     }
 
     protected function setUp(): void
