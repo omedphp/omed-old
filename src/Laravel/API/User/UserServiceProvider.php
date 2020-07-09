@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Omed\Laravel\API\User;
 
-use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Common\Persistence\ManagerRegistry;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\ServiceProvider;
 use Omed\Component\User\Manager\UserManager;
@@ -39,9 +39,10 @@ class UserServiceProvider extends ServiceProvider
         $app->alias(UserController::class, 'OmedUserController');
         $this->loadRoutesFrom(__DIR__.'/Resources/config/routes.php');
 
-        $app->bind('omed.managers.user', function ($app) {
-            /** @var string $userClass */
-            /** @var \Doctrine\Common\Persistence\ManagerRegistry $registry */
+        $app->bind(UserManager::class, function ($app) {
+            /* @var string $userClass */
+            /* @var \Doctrine\Common\Persistence\ManagerRegistry $registry */
+            /* @var \Illuminate\Foundation\Application $app */
             $registry = $app->get(ManagerRegistry::class);
             $om = $registry->getManagerForClass(User::class);
             $canonicalizer = new Canonicalizer();
@@ -49,13 +50,14 @@ class UserServiceProvider extends ServiceProvider
             $userClass = config('omed_user.models.user');
 
             $encoderFactory = new EncoderFactory(['user' => [
-                'algorithm' => 'native',
+                'algorithm' => 'bcrypt',
                 'cost' => 12,
             ]]);
             $passwordUpdater = new PasswordUpdater($encoderFactory);
 
             return new UserManager($passwordUpdater, $fieldsUpdater, $om, $userClass);
         });
+        $app->alias(UserManager::class,'omed.managers.user');
     }
 
     public function register(): void

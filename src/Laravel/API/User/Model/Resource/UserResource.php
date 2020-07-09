@@ -19,13 +19,13 @@ class UserResource extends JsonResource
 {
     public function toArray($request)
     {
+        /* @var \Omed\Laravel\API\User\Model\User $resource */
+        $resource = $this->resource;
         return [
-            'id' => $this->id,
-            'username' => $this->username,
-            'email' => $this->email,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
-            '_self' => route('omed_user.show', ['omed_user' => $this->id]),
+            'id' => $resource->getId(),
+            'username' => $resource->getUsername(),
+            'email' => $resource->getEmail(),
+            '_self' => route('omed_user.show', ['omed_user' => $resource->getId()]),
         ];
     }
 }

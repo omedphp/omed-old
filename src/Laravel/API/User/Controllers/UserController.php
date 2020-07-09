@@ -15,6 +15,7 @@ namespace Omed\Laravel\API\User\Controllers;
 
 use Omed\Component\User\Manager\UserManager;
 use Omed\Laravel\API\User\Model\Resource\UserResource;
+use Illuminate\Support\Collection;
 use Omed\Laravel\API\User\Model\User;
 
 class UserController extends Controller
@@ -26,7 +27,7 @@ class UserController extends Controller
     {
         $repository = $manager->getRepository();
         $data = $repository->findAll();
-
-        return UserResource::collection($data);
+        $collection = new Collection($data);
+        return UserResource::collection($collection);
     }
 }

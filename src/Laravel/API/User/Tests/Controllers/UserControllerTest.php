@@ -25,20 +25,18 @@ class UserControllerTest extends UserTestCase
 
     public function testIndex()
     {
-        $app = $this->app;
-        /** @var \Omed\Component\User\Manager\UserManager $manager */
-        $manager = $app->get('omed.managers.user');
-
+        /* @var \Omed\Component\User\Manager\UserManager $manager */
+        $manager = $this->app->get('omed.managers.user');
         $user = $manager->createUser();
         $user
             ->setUsername('test')
             ->setPlainPassword('test')
-            ->setEmail('test@example.com');
-
+            ->setEmail('test@example.com')
+        ;
         $manager->storeUser($user);
 
-        $this->assertNotNull($user->getPassword());
-        $this->assertNull($user->getPlainPassword());
-        $this->assertNotNull($user->getId());
+        $response = $this->json('GET',route('omed_user.index'));
+
+        $response->assertStatus(200);
     }
 }
