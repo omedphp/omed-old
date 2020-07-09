@@ -30,6 +30,8 @@ class CoreServiceProviderTest extends TestCase
     public function testRegister()
     {
         $providers = config('app.providers');
+
+        $config = config('doctrine.managers.default');
         $this->assertContains(DoctrineServiceProvider::class, $providers);
     }
 }

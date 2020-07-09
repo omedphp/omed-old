@@ -19,7 +19,6 @@ class CoreServiceProvider extends ServiceProvider
 {
     public function boot()
     {
-        $app = $this->app;
     }
 
     public function register()
