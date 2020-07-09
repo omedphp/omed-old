@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Omed\Laravel\API\User\Model\Resource;
+namespace Omed\Laravel\User\Model\Resource;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -19,8 +19,9 @@ class UserResource extends JsonResource
 {
     public function toArray($request)
     {
-        /* @var \Omed\Laravel\API\User\Model\User $resource */
+        /** @var \Omed\Laravel\User\Model\User $resource */
         $resource = $this->resource;
+
         return [
             'id' => $resource->getId(),
             'username' => $resource->getUsername(),

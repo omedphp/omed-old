@@ -11,19 +11,25 @@
 
 declare(strict_types=1);
 
-namespace Tests\Omed\Laravel\API\User;
+namespace Tests\Omed\Laravel\User;
 
 use LaravelDoctrine\ORM\DoctrineServiceProvider;
 use LaravelDoctrine\ORM\Facades\Doctrine;
 use LaravelDoctrine\ORM\Facades\EntityManager;
 use LaravelDoctrine\ORM\Facades\Registry;
-use Omed\Laravel\API\Core\CoreServiceProvider;
-use Omed\Laravel\API\User\UserServiceProvider;
+use Omed\Component\User\Model\UserInterface;
+use Omed\Laravel\Core\CoreServiceProvider;
+use Omed\Laravel\User\Model\User;
+use Omed\Laravel\User\Testing\UserManagerTrait;
+use Omed\Laravel\User\UserServiceProvider;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
+use Tymon\JWTAuth\Providers\LaravelServiceProvider as JWTAuthServiceProvider;
 
 class UserTestCase extends OrchestraTestCase
 {
-    protected function refresheDatabase()
+    use UserManagerTrait;
+
+    protected function refreshDatabase()
     {
         $this->artisan('doctrine:schema:create');
     }
@@ -31,6 +37,7 @@ class UserTestCase extends OrchestraTestCase
     protected function getPackageProviders($app)
     {
         return [
+            JWTAuthServiceProvider::class,
             DoctrineServiceProvider::class,
             CoreServiceProvider::class,
             UserServiceProvider::class,
@@ -43,6 +50,8 @@ class UserTestCase extends OrchestraTestCase
             'EntityManager' => EntityManager::class,
             'Registry' => Registry::class,
             'Doctrine' => Doctrine::class,
+            'JWTAuth' => 'Tymon\JWTAuth\Facades\JWTAuth',
+            'JWTFactory' => 'Tymon\JWTAuth\Facades\JWTFactory',
         ];
     }
 
@@ -56,20 +65,38 @@ class UserTestCase extends OrchestraTestCase
         ]);
 
         $defPath = sys_get_temp_dir().'/omed-user/foo-model';
-        if(!is_dir($defPath)){
-            mkdir($defPath,0777,true);
+        if (!is_dir($defPath)) {
+            mkdir($defPath, 0777, true);
         }
         $app['config']->set('doctrine.managers.default.connection', 'sqlite');
         $app['config']->set('doctrine.managers.default.paths', [$defPath]);
+
+        $app['config']->set('auth.model', User::class);
+        $app['config']->set('auth.defaults.guard', 'api');
+        $app['config']->set('auth.guards.api.driver', 'jwt');
+        $app['config']->set('auth.providers.users.model', User::class);
+        $app['config']->set('auth.providers.users.driver', 'doctrine');
     }
 
     protected function setUp(): void
     {
         parent::setUp();
-        $this->setupDatabase($this->app);
+        $this->refreshDatabase();
     }
 
-    protected function setupDatabase($app): void
+    /**
+     * @return UserInterface
+     */
+    protected function generateUserData()
     {
+        $manager = $this->getUserManager();
+        $user = $manager->createUser();
+        $user
+            ->setUsername('test')
+            ->setPlainPassword('test')
+            ->setEmail('test@example.com');
+        $manager->storeUser($user);
+
+        return $user;
     }
 }

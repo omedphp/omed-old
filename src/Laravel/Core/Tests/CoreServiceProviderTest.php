@@ -11,11 +11,11 @@
 
 declare(strict_types=1);
 
-namespace Tests\Omed\Laravel\API\Core;
+namespace Tests\Omed\Laravel\Core;
 
 use LaravelDoctrine\ORM\DoctrineServiceProvider;
-use Omed\Laravel\API\Core\CoreServiceProvider;
-use Omed\Laravel\API\Core\Test\TestCase;
+use Omed\Laravel\Core\CoreServiceProvider;
+use Omed\Laravel\Core\Test\TestCase;
 
 class CoreServiceProviderTest extends TestCase
 {

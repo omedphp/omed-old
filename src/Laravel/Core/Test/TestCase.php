@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Omed\Laravel\API\Core\Test;
+namespace Omed\Laravel\Core\Test;
 
 use Orchestra\Testbench\TestCase as BaseTestCase;
 

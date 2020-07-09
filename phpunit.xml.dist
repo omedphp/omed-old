@@ -19,11 +19,8 @@
         <env name="JWT_SECRET" value="helloworld"/>
     </php>
     <testsuites>
-        <testsuite name="Omed Component Test Suite">
-            <directory suffix="Test.php">./src/Component/*/Tests</directory>
-        </testsuite>
-        <testsuite name="Omed Laravel Test Suite">
-            <directory suffix="Test.php">./src/Laravel/*/*/Tests</directory>
+        <testsuite name="Omed Test Suite">
+            <directory suffix="Test.php">./src/*/*/Tests</directory>
         </testsuite>
     </testsuites>
     <filter>
@@ -33,9 +30,7 @@
                 <directory>./src/*/*/Test</directory>
                 <directory>./src/*/*/Spec</directory>
                 <directory>./src/*/*/Tests</directory>
-                <directory>./src/*/*/*/Resources</directory>
-                <directory>./src/*/*/*/Spec</directory>
-                <directory>./src/*/*/*/Tests</directory>
+                <directory>./src/*/*/Resources</directory>
             </exclude>
         </whitelist>
     </filter>

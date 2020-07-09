@@ -24,10 +24,19 @@
         "psr-4": {
             "Spec\\Omed\\Component\\User\\": "src/Component/User/Spec",
             "Tests\\Omed\\Component\\User\\": "src/Component/User/Tests",
-            "Spec\\Omed\\Laravel\\API\\User\\": "src/Laravel/API/User/Spec",
-            "Tests\\Omed\\Laravel\\API\\User\\": "src/Laravel/API/User/Tests",
-            "Tests\\Omed\\Laravel\\API\\Core\\": "src/Laravel/API/Core/Tests"
+            "Spec\\Omed\\Laravel\\User\\": "src/Laravel/User/Spec",
+            "Tests\\Omed\\Laravel\\User\\": "src/Laravel/User/Tests",
+            "Tests\\Omed\\Laravel\\Core\\": "src/Laravel/Core/Tests"
         }
+    },
+    "scripts": {
+        "phpcs": "./vendor/bin/php-cs-fixer fix",
+        "phpstan": "./vendor/bin/phpstan analyse --ansi",
+        "phpunit": "./vendor/bin/phpunit --colors=always",
+        "test": [
+            "@phpstan",
+            "@phpunit"
+        ]
     },
     "require": {
         "php": ">=7.2",
@@ -35,7 +44,8 @@
         "doctrine/orm": "^2.6.6|^2.7",
         "illuminate/auth": "^5.8|^6.0|^7.0",
         "laravel-doctrine/orm": "^1.4|^1.5|^1.6",
-        "symfony/security-core": "^3.4|^4.0|^5.0"
+        "symfony/security-core": "^3.4|^4.0|^5.0",
+        "tymon/jwt-auth": "^1.0"
     },
     "require-dev": {
         "doctrine/data-fixtures": "^1.4",

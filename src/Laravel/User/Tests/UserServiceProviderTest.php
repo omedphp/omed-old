@@ -11,17 +11,17 @@
 
 declare(strict_types=1);
 
-namespace Tests\Omed\Laravel\API\User;
+namespace Tests\Omed\Laravel\User;
 
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\Common\Persistence\ObjectManager;
 use Omed\Component\User\Manager\UserManager;
-use Omed\Laravel\API\User\Model\User;
+use Omed\Laravel\User\Model\User;
 
 /**
  * Class UserServiceProviderTest.
  *
- * @covers \Omed\Laravel\API\User\UserServiceProvider
+ * @covers \Omed\Laravel\User\UserServiceProvider
  */
 class UserServiceProviderTest extends UserTestCase
 {

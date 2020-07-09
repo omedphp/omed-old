@@ -11,17 +11,17 @@
 
 declare(strict_types=1);
 
-namespace Omed\Laravel\API\User;
+namespace Omed\Laravel\User;
 
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\ServiceProvider;
-use Omed\Component\User\Manager\UserManager;
-use Omed\Component\User\Util\CanonicalFieldsUpdater;
-use Omed\Component\User\Util\Canonicalizer;
-use Omed\Component\User\Util\PasswordUpdater;
-use Omed\Laravel\API\User\Controllers\UserController;
-use Omed\Laravel\API\User\Model\User;
+use Omed\Laravel\User\Controllers\AuthController;
+use Omed\Laravel\User\Controllers\UserController;
+use Omed\Laravel\User\Services\PasswordUpdater;
+use Omed\Laravel\User\Services\UserManager;
 use Symfony\Component\Security\Core\Encoder\EncoderFactory;
 
 class UserServiceProvider extends ServiceProvider
@@ -36,28 +36,36 @@ class UserServiceProvider extends ServiceProvider
 
         $app = $this->app;
 
-        $app->alias(UserController::class, 'OmedUserController');
         $this->loadRoutesFrom(__DIR__.'/Resources/config/routes.php');
 
-        $app->bind(UserManager::class, function ($app) {
-            /* @var string $userClass */
-            /* @var \Doctrine\Common\Persistence\ManagerRegistry $registry */
-            /* @var \Illuminate\Foundation\Application $app */
-            $registry = $app->get(ManagerRegistry::class);
-            $om = $registry->getManagerForClass(User::class);
-            $canonicalizer = new Canonicalizer();
-            $fieldsUpdater = new CanonicalFieldsUpdater($canonicalizer, $canonicalizer);
-            $userClass = config('omed_user.models.user');
-
+        $app->bind(PasswordUpdater::class, function ($app) {
             $encoderFactory = new EncoderFactory(['user' => [
                 'algorithm' => 'bcrypt',
                 'cost' => 12,
             ]]);
-            $passwordUpdater = new PasswordUpdater($encoderFactory);
 
-            return new UserManager($passwordUpdater, $fieldsUpdater, $om, $userClass);
+            return new PasswordUpdater($encoderFactory);
         });
-        $app->alias(UserManager::class,'omed.managers.user');
+
+        $app->bind(UserManager::class, function ($app) {
+            /** @var \Illuminate\Foundation\Application $app */
+            /** @var \Doctrine\Common\Persistence\ManagerRegistry $registry */
+            /** @var \Doctrine\Common\Persistence\ObjectManager $om */
+            $userModel = config('omed_user.models.user');
+            $registry = $app->get(ManagerRegistry::class);
+            $om = $registry->getManagerForClass($userModel);
+
+            return new UserManager($om);
+        });
+        $app->alias(UserManager::class, 'omed.managers.user');
+
+        Hash::extend('omed_encryption', function (Application $app) {
+            return $app->get(PasswordUpdater::class);
+        });
+        config(['hashing.driver' => 'omed_encryption']);
+
+        $app->alias(UserController::class, 'OmedUserController');
+        $app->alias(AuthController::class, 'OmedAuthController');
     }
 
     public function register(): void

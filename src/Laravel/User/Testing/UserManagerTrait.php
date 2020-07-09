@@ -11,18 +11,17 @@
 
 declare(strict_types=1);
 
-namespace Omed\Laravel\API\Core;
+namespace Omed\Laravel\User\Testing;
 
-use Illuminate\Support\ServiceProvider;
+use Omed\Laravel\User\Services\UserManager;
 
-class CoreServiceProvider extends ServiceProvider
+trait UserManagerTrait
 {
-    public function boot()
+    /**
+     * @return UserManager
+     */
+    public function getUserManager()
     {
-        $app = $this->app;
-    }
-
-    public function register()
-    {
+        return app()->get('omed.managers.user');
     }
 }

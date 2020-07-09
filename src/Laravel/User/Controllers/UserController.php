@@ -11,23 +11,22 @@
 
 declare(strict_types=1);
 
-namespace Omed\Laravel\API\User\Controllers;
+namespace Omed\Laravel\User\Controllers;
 
-use Omed\Component\User\Manager\UserManager;
-use Omed\Laravel\API\User\Model\Resource\UserResource;
-use Illuminate\Support\Collection;
-use Omed\Laravel\API\User\Model\User;
+use Omed\Laravel\User\Model\Resource\UserResource;
+use Omed\Laravel\User\Services\UserManager;
 
 class UserController extends Controller
 {
     /**
+     * @param UserManager $manager
+     *
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
     public function index(UserManager $manager)
     {
-        $repository = $manager->getRepository();
-        $data = $repository->findAll();
-        $collection = new Collection($data);
+        $collection = $manager->findAll();
+
         return UserResource::collection($collection);
     }
 }

@@ -11,8 +11,18 @@
 
 declare(strict_types=1);
 
-use Illuminate\Support\Facades\Route;
+namespace Omed\Laravel\Core;
 
-Route::apiResource('omed_user', 'OmedUserController', [
-    'path' => config('omed_user.route_prefix.user'),
-]);
+use Illuminate\Support\ServiceProvider;
+
+class CoreServiceProvider extends ServiceProvider
+{
+    public function boot()
+    {
+        $app = $this->app;
+    }
+
+    public function register()
+    {
+    }
+}
