@@ -11,9 +11,12 @@
 
 declare(strict_types=1);
 
+use Omed\Component\User\UserComponent;
+use Omed\Laravel\API\User\UserServiceProvider;
+
 return [
     'models' => [
-        'user' => '',
+        'user' => \Omed\Laravel\API\User\Model\User::class,
         'permission' => '',
         'role' => '',
     ],
@@ -29,4 +32,22 @@ return [
     'jwt' => [
         'secret' => '',
     ],
+    'doctrine_manager_config' => [
+        'dev' => true,
+        'meta' => 'simplified-xml',
+        'connection' => 'sqlite',
+        'namespaces' => [
+            'Omed\\Component\\User',
+            'Omed\\Laravel\\API\\User'
+        ],
+        'proxies' => [
+            'namespace' => false,
+            'path' => storage_path('proxies'),
+            'auto_generate' => env('DOCTRINE_PROXY_AUTOGENERATE', false)
+        ],
+        'paths' => [
+            UserComponent::getDoctrineXMLSchemaPath() => 'Omed\\Component\\User\\Model',
+            UserServiceProvider::getDoctrineXMLSchemaPath() => 'Omed\\Laravel\\API\\User\\Model'
+        ]
+    ]
 ];

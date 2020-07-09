@@ -13,10 +13,19 @@ declare(strict_types=1);
 
 namespace Omed\Laravel\API\User;
 
+use Doctrine\Persistence\ManagerRegistry;
 use Illuminate\Filesystem\Filesystem;
-use Illuminate\Support\Collection;
 use Illuminate\Support\ServiceProvider;
+use LaravelDoctrine\ORM\Facades\Registry;
+use Omed\Component\User\Manager\UserManager;
+use Omed\Component\User\UserComponent;
+use Omed\Component\User\Util\CanonicalFieldsUpdater;
+use Omed\Component\User\Util\Canonicalizer;
+use Omed\Component\User\Util\PasswordUpdater;
 use Omed\Laravel\API\User\Controllers\UserController;
+use Omed\Laravel\API\User\Model\User;
+use Symfony\Component\Security\Core\Encoder\EncoderFactory;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoder;
 
 class UserServiceProvider extends ServiceProvider
 {
@@ -26,14 +35,31 @@ class UserServiceProvider extends ServiceProvider
             $this->publishes([
                 __DIR__.'/Resources/config/user.php' => config_path('omed_user.php'),
             ], 'config');
-
-            $this->publishes([
-                __DIR__.'/Resources/database/migrations/create_users_table.stub.php' => $this->getMigrationFileName($filesystem),
-            ], 'migrations');
         }
 
-        $this->app->alias(UserController::class, 'OmedUserController');
+        $app = $this->app;
+
+        $app->alias(UserController::class, 'OmedUserController');
         $this->loadRoutesFrom(__DIR__.'/Resources/config/routes.php');
+
+        $app->bind('omed.managers.user',function($app){
+            /* @var string $userClass */
+            /* @var \Doctrine\Common\Persistence\ManagerRegistry $registry */
+
+            $registry = $app->get(ManagerRegistry::class);
+            $om = $registry->getManagerForClass(User::class);
+            $canonicalizer = new Canonicalizer();
+            $fieldsUpdater = new CanonicalFieldsUpdater($canonicalizer, $canonicalizer);
+            $userClass = config('omed_user.models.user');
+
+            $encoderFactory = new EncoderFactory([$userClass => [
+                'algorithm' => 'native',
+                'cost' => 12,
+            ]]);
+            $passwordUpdater = new PasswordUpdater($encoderFactory);
+
+            return new UserManager($passwordUpdater,$fieldsUpdater,$om, $userClass);
+        });
     }
 
     public function register(): void
@@ -42,19 +68,13 @@ class UserServiceProvider extends ServiceProvider
             __DIR__.'/Resources/config/user.php',
             'omed_user'
         );
+
+        $config = config('omed_user.doctrine_manager_config');
+        $this->app['config']->set('doctrine.managers.omed_user',$config);
     }
 
-    /**
-     * Returns existing migration file if found, else uses the current timestamp.
-     */
-    protected function getMigrationFileName(Filesystem $filesystem): string
+    public static function getDoctrineXMLSchemaPath()
     {
-        $timestamp = date('Y_m_d_His');
-
-        return Collection::make($this->app->databasePath().\DIRECTORY_SEPARATOR.'migrations'.\DIRECTORY_SEPARATOR)
-            ->flatMap(function ($path) use ($filesystem) {
-                return $filesystem->glob($path.'*_create_users_table.php');
-            })->push($this->app->databasePath()."/migrations/{$timestamp}_create_users_table.php")
-            ->first();
+        return __DIR__.'/Resources/config/doctrine';
     }
 }

@@ -13,16 +13,37 @@ declare(strict_types=1);
 
 namespace Tests\Omed\Laravel\API\User;
 
-use Omed\Laravel\API\User\Model\User;
+use LaravelDoctrine\ORM\DoctrineServiceProvider;
+use LaravelDoctrine\ORM\Facades\Doctrine;
+use LaravelDoctrine\ORM\Facades\EntityManager;
+use LaravelDoctrine\ORM\Facades\Registry;
+use Omed\Component\User\UserComponent;
+use Omed\Laravel\API\Core\CoreServiceProvider;
 use Omed\Laravel\API\User\UserServiceProvider;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
 
-class TestCase extends OrchestraTestCase
+class UserTestCase extends OrchestraTestCase
 {
+    protected function refresheDatabase()
+    {
+        $this->artisan('doctrine:schema:create');
+    }
+
     protected function getPackageProviders($app)
     {
         return [
+            DoctrineServiceProvider::class,
+            CoreServiceProvider::class,
             UserServiceProvider::class,
+        ];
+    }
+
+    protected function getPackageAliases($app)
+    {
+        return [
+            'EntityManager' => EntityManager::class,
+            'Registry' => Registry::class,
+            'Doctrine' => Doctrine::class,
         ];
     }
 
@@ -34,6 +55,11 @@ class TestCase extends OrchestraTestCase
             'database' => ':memory:',
             'prefix' => '',
         ]);
+
+        $app['config']->set('doctrine.managers.default.connection','sqlite');
+        $app['config']->set('doctrine.managers.default.paths',[__DIR__.'/Resources']);
+
+
     }
 
     protected function setUp(): void
@@ -44,9 +70,5 @@ class TestCase extends OrchestraTestCase
 
     protected function setupDatabase($app): void
     {
-        include_once __DIR__.'/../Resources/database/migrations/create_users_table.stub.php';
-        (new \CreateUsersTable())->up();
-
-        (new User(['email' => 'test@user.com', 'password' => 'test']))->save();
     }
 }

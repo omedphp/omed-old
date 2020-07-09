@@ -13,15 +13,33 @@ declare(strict_types=1);
 
 namespace Tests\Omed\Laravel\API\User\Controllers;
 
-use Tests\Omed\Laravel\API\User\TestCase;
+use Tests\Omed\Laravel\API\User\UserTestCase;
 
-class UserControllerTest extends TestCase
+class UserControllerTest extends UserTestCase
 {
+    public function setUp(): void
+    {
+        parent::setUp();
+        $this->refresheDatabase();
+    }
+
     public function testIndex()
     {
-        $response = $this->json('GET', route('omed_user.index'));
+        /* @var \Omed\Component\User\Manager\UserManager $manager */
+        $app = $this->app;
+        $manager = $app->get('omed.managers.user');
 
-        $json = $response->json('data');
-        $response->assertStatus(200);
+        $user = $manager->createUser();
+        $user
+            ->setUsername('test')
+            ->setPlainPassword('test')
+            ->setEmail('test@example.com')
+        ;
+
+        $manager->storeUser($user);
+
+        $this->assertNotNull($user->getPassword());
+        $this->assertNull($user->getPlainPassword());
+        $this->assertNotNull($user->getId());
     }
 }
