@@ -17,7 +17,6 @@ use LaravelDoctrine\ORM\DoctrineServiceProvider;
 use LaravelDoctrine\ORM\Facades\Doctrine;
 use LaravelDoctrine\ORM\Facades\EntityManager;
 use LaravelDoctrine\ORM\Facades\Registry;
-use Omed\Component\User\UserComponent;
 use Omed\Laravel\API\Core\CoreServiceProvider;
 use Omed\Laravel\API\User\UserServiceProvider;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
@@ -56,10 +55,8 @@ class UserTestCase extends OrchestraTestCase
             'prefix' => '',
         ]);
 
-        $app['config']->set('doctrine.managers.default.connection','sqlite');
-        $app['config']->set('doctrine.managers.default.paths',[__DIR__.'/Resources']);
-
-
+        $app['config']->set('doctrine.managers.default.connection', 'sqlite');
+        $app['config']->set('doctrine.managers.default.paths', [__DIR__.'/Resources']);
     }
 
     protected function setUp(): void

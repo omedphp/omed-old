@@ -17,7 +17,7 @@ use Tests\Omed\Laravel\API\User\UserTestCase;
 
 class UserControllerTest extends UserTestCase
 {
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->refresheDatabase();
@@ -25,7 +25,7 @@ class UserControllerTest extends UserTestCase
 
     public function testIndex()
     {
-        /* @var \Omed\Component\User\Manager\UserManager $manager */
+        /** @var \Omed\Component\User\Manager\UserManager $manager */
         $app = $this->app;
         $manager = $app->get('omed.managers.user');
 
@@ -33,8 +33,7 @@ class UserControllerTest extends UserTestCase
         $user
             ->setUsername('test')
             ->setPlainPassword('test')
-            ->setEmail('test@example.com')
-        ;
+            ->setEmail('test@example.com');
 
         $manager->storeUser($user);
 

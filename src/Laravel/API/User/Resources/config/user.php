@@ -38,16 +38,16 @@ return [
         'connection' => 'sqlite',
         'namespaces' => [
             'Omed\\Component\\User',
-            'Omed\\Laravel\\API\\User'
+            'Omed\\Laravel\\API\\User',
         ],
         'proxies' => [
             'namespace' => false,
             'path' => storage_path('proxies'),
-            'auto_generate' => env('DOCTRINE_PROXY_AUTOGENERATE', false)
+            'auto_generate' => env('DOCTRINE_PROXY_AUTOGENERATE', false),
         ],
         'paths' => [
             UserComponent::getDoctrineXMLSchemaPath() => 'Omed\\Component\\User\\Model',
-            UserServiceProvider::getDoctrineXMLSchemaPath() => 'Omed\\Laravel\\API\\User\\Model'
-        ]
-    ]
+            UserServiceProvider::getDoctrineXMLSchemaPath() => 'Omed\\Laravel\\API\\User\\Model',
+        ],
+    ],
 ];
