@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace Omed\Component\Core\Test;
 
 use Doctrine\Common\DataFixtures\Purger\ORMPurger;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\SchemaTool;
 use Doctrine\ORM\Tools\Setup;
