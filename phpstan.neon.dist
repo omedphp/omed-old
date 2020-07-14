@@ -4,11 +4,17 @@ parameters:
 		- src
 	inferPrivatePropertyTypeFromConstructor: true
 	excludes_analyse:
-		- Resources
-		- Spec
-		- Tests
-		- src/Laravel/API/User/Model/Resource
 		- src/Component/User/Spec
+		- src/Component/User/Tests
+		- src/Component/Core/Spec
+		- src/Component/Core/Tests
+		- src/Laravel/User/Tests
+		- src/Laravel/User/Spec
+
+		- src/Laravel/User/Controllers
 	earlyTerminatingMethodCalls:
 		PHPUnit\Framework\Constraint\Constraint:
 			- fail
+	ignoreErrors:
+	    - '#undefined static method#'
+	    - '#PHPDoc tag @var does not match assigned variable#'

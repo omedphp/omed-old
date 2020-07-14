@@ -19,8 +19,8 @@
         <env name="JWT_SECRET" value="helloworld"/>
     </php>
     <testsuites>
-        <testsuite name="Omed Test Suite">
-            <directory suffix="Test.php">./src/*/*/Tests</directory>
+        <testsuite name="Omed User Test Suite">
+            <directory suffix="Test.php">./Tests</directory>
         </testsuite>
     </testsuites>
     <filter>

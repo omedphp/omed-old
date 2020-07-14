@@ -11,17 +11,8 @@
 
 declare(strict_types=1);
 
-namespace Omed\Component\User;
-
-class UserComponent
-{
-    public static function getDoctrineXMLSchemaPath()
-    {
-        return __DIR__.'/Resources/doctrine';
-    }
-
-    public static function getModelPath()
-    {
-        return __DIR__.'/Model';
-    }
-}
+return [
+    'providers' => [
+        \LaravelDoctrine\ORM\DoctrineServiceProvider::class,
+    ],
+];

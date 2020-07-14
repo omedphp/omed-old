@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the API Platform project.
+ * This file is part of the Omed project.
  *
  * (c) Anthonius Munthi <https://itstoni.com>
  *
@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Tests\Omed\Component\User\Util;
 
-use Omed\Component\Core\Test\TestCase;
+use Omed\Component\Core\Testing\TestCase;
 use Omed\Component\User\Util\Canonicalizer;
 
 class CanonicalizerTest extends TestCase

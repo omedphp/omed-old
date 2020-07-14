@@ -11,17 +11,10 @@
 
 declare(strict_types=1);
 
-namespace Omed\Component\User;
+namespace Omed\Component\Core\Testing;
 
-class UserComponent
+use PHPUnit\Framework\TestCase as BaseTestCase;
+
+class TestCase extends BaseTestCase
 {
-    public static function getDoctrineXMLSchemaPath()
-    {
-        return __DIR__.'/Resources/doctrine';
-    }
-
-    public static function getModelPath()
-    {
-        return __DIR__.'/Model';
-    }
 }

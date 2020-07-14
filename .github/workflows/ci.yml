@@ -65,7 +65,7 @@ jobs:
         run: vendor/bin/phpstan analyse --ansi
 
   phpunit:
-    name: PHPUnit (PHP ${{ matrix.php }})
+    name: Test PHP-${{ matrix.php }}) ${{ matrix.dependency-version }}
     runs-on: ubuntu-latest
     container:
       image: php:${{ matrix.php }}-alpine
@@ -78,8 +78,10 @@ jobs:
           - '7.2'
           - '7.3'
           - '7.4'
+        dependency-version: [prefer-lowest, prefer-stable]
         include:
           - php: '7.4'
+            dependency-version: prefer-stable
             coverage: true
       fail-fast: false
     timeout-minutes: 20
@@ -116,16 +118,13 @@ jobs:
         uses: actions/cache@v1
         with:
           path: ~/.composer/cache
-          key: composer-php${{ matrix.php }}-${{ github.sha }}
-          restore-keys: |
-            composer-php${{ matrix.php }}-
-            composer-
+          key: composer-php${{ matrix.php }}-${{ matrix.dependency-version }}-${{ github.sha }}
         continue-on-error: true
       - name: Update project dependencies
         run: |
           mkdir -p /tmp/omedphp/omed/vendor
           ln -s /tmp/omedphp/omed/vendor vendor
-          composer update --no-progress --no-suggest --ansi
+          composer update --no-progress --no-suggest --ansi --prefer-dist --no-interaction --${{ matrix.dependency-version }}
       - name: Enable code coverage
         if: matrix.coverage
         run: echo '::set-env name=COVERAGE::1'

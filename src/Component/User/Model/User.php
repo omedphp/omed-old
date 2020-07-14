@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the API Platform project.
+ * This file is part of the Omed project.
  *
  * (c) Anthonius Munthi <https://itstoni.com>
  *
@@ -13,49 +13,47 @@ declare(strict_types=1);
 
 namespace Omed\Component\User\Model;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
  * Class User.
- *
- * @ORM\Entity
- * @ORM\Table(name="omed_users")
  */
-class User implements UserInterface
+abstract class User implements UserInterface
 {
     /**
-     * @ORM\Column(type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     *
-     * @var null|int
+     * @var int|null
      */
     protected $id;
 
     /**
-     * @ORM\Column(type="string")
-     *
+     * @var bool
+     */
+    protected $enabled = true;
+
+    /**
      * @var string|null
      */
     protected $username;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
-     *
+     * @var string|null
+     */
+    protected $usernameCanonical;
+
+    /**
      * @var string|null
      */
     protected $salt;
 
     /**
-     * @ORM\Column(type="string")
-     *
      * @var string|null
      */
     protected $email;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
-     *
+     * @var string|null
+     */
+    protected $emailCanonical;
+
+    /**
      * @var string|null
      */
     protected $password;
@@ -66,53 +64,52 @@ class User implements UserInterface
     protected $plainPassword;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
-     *
      * @var \DateTimeInterface|null
      */
     protected $lastLogin;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
-     *
      * @var string|null
      */
     protected $emailVerificationToken;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
-     *
      * @var string|null
      */
     protected $passwordResetToken;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
-     *
      * @var \DateTimeInterface|null
      */
     protected $passwordRequestedAt;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
-     *
      * @var \DateTimeInterface|null
      */
     protected $emailVerifiedAt;
 
     /**
-     * @ORM\Column(type="boolean")
-     *
      * @var bool
      */
     protected $locked = false;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
-     *
      * @var \DateTimeInterface|null
      */
     protected $credentialsExpireAt;
+
+    /**
+     * @var array
+     */
+    protected $roles = [];
+
+    /**
+     * {@inheritdoc}
+     */
+    public function eraseCredentials()
+    {
+        $this->plainPassword = null;
+    }
 
     public function getId(): ?int
     {
@@ -125,11 +122,53 @@ class User implements UserInterface
     }
 
     /**
-     * @return User
+     * @param string|null $username
+     *
+     * @return UserInterface
      */
     public function setUsername(?string $username): UserInterface
     {
         $this->username = $username;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getUsernameCanonical(): ?string
+    {
+        return $this->usernameCanonical;
+    }
+
+    /**
+     * @param string|null $usernameCanonical
+     *
+     * @return UserInterface
+     */
+    public function setUsernameCanonical(?string $usernameCanonical): UserInterface
+    {
+        $this->usernameCanonical = $usernameCanonical;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getEmailCanonical(): ?string
+    {
+        return $this->emailCanonical;
+    }
+
+    /**
+     * @param string|null $emailCanonical
+     *
+     * @return UserInterface
+     */
+    public function setEmailCanonical(?string $emailCanonical): UserInterface
+    {
+        $this->emailCanonical = $emailCanonical;
 
         return $this;
     }
@@ -140,7 +179,9 @@ class User implements UserInterface
     }
 
     /**
-     * @return User
+     * @param string|null $salt
+     *
+     * @return UserInterface
      */
     public function setSalt(?string $salt): UserInterface
     {
@@ -164,15 +205,17 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getPassword(): ?string
+    public function getPassword()
     {
         return $this->password;
     }
 
     /**
-     * @return User
+     * @param string $password
+     *
+     * @return $this|UserInterface
      */
-    public function setPassword(?string $password): UserInterface
+    public function setPassword($password)
     {
         $this->password = $password;
 

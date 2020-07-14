@@ -11,17 +11,17 @@
 
 declare(strict_types=1);
 
-namespace Omed\Component\User;
+namespace Omed\Laravel\Core;
 
-class UserComponent
+use Illuminate\Support\ServiceProvider;
+
+class CoreServiceProvider extends ServiceProvider
 {
-    public static function getDoctrineXMLSchemaPath()
+    public function boot()
     {
-        return __DIR__.'/Resources/doctrine';
     }
 
-    public static function getModelPath()
+    public function register()
     {
-        return __DIR__.'/Model';
     }
 }

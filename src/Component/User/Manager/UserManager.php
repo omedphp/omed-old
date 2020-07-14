@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the API Platform project.
+ * This file is part of the Omed project.
  *
  * (c) Anthonius Munthi <https://itstoni.com>
  *
@@ -14,9 +14,12 @@ declare(strict_types=1);
 namespace Omed\Component\User\Manager;
 
 use Doctrine\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectRepository;
 use Omed\Component\User\Model\UserInterface;
+use Omed\Component\User\Util\CanonicalFieldsUpdater;
+use Omed\Component\User\Util\PasswordUpdaterInterface;
 
-class UserManager
+class UserManager implements UserManagerInterface
 {
     /**
      * @var ObjectManager
@@ -29,12 +32,29 @@ class UserManager
     private $class;
 
     /**
-     * UserManager constructor.
+     * @var CanonicalFieldsUpdater
      */
-    public function __construct(ObjectManager $om, string $class)
+    private $canonicalFieldsUpdater;
+
+    /**
+     * @var PasswordUpdaterInterface
+     */
+    private $passwordUpdater;
+
+    /**
+     * UserManager constructor.
+     *
+     * @param PasswordUpdaterInterface $passwordUpdater
+     * @param CanonicalFieldsUpdater   $canonicalFieldsUpdater
+     * @param ObjectManager            $om
+     * @param string                   $class
+     */
+    public function __construct(PasswordUpdaterInterface $passwordUpdater, CanonicalFieldsUpdater $canonicalFieldsUpdater, ObjectManager $om, string $class)
     {
         $this->class = $class;
         $this->om = $om;
+        $this->canonicalFieldsUpdater = $canonicalFieldsUpdater;
+        $this->passwordUpdater = $passwordUpdater;
     }
 
     /**
@@ -45,6 +65,17 @@ class UserManager
         return new $this->class();
     }
 
+    /**
+     * @param UserInterface $user
+     */
+    public function updateCanonicalFields(UserInterface $user)
+    {
+        $this->canonicalFieldsUpdater->updateCanonicalFields($user);
+    }
+
+    /**
+     * @return ObjectRepository
+     */
     public function getRepository()
     {
         return $this->om->getRepository($this->class);
@@ -61,10 +92,38 @@ class UserManager
     }
 
     /**
-     * @return UserInterface
+     * @param UserInterface $user
+     */
+    public function updatePassword(UserInterface $user)
+    {
+        $this->passwordUpdater->hashPassword($user);
+    }
+
+    /**
+     * @param string $username
+     *
+     * @return object|UserInterface|null
+     */
+    public function findByUsername(string $username)
+    {
+        return $this->findUserBy(['username' => $username]);
+    }
+
+    /**
+     * @param array $criteria
+     *
+     * @return object|UserInterface|null
      */
     public function findUserBy(array $criteria)
     {
         return $this->getRepository()->findOneBy($criteria);
+    }
+
+    /**
+     * @return PasswordUpdaterInterface
+     */
+    public function getPasswordUpdater()
+    {
+        return $this->passwordUpdater;
     }
 }

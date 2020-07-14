@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the API Platform project.
+ * This file is part of the Omed project.
  *
  * (c) Anthonius Munthi <https://itstoni.com>
  *
@@ -19,6 +19,14 @@ namespace Omed\Component\User\Model;
 interface UserInterface
 {
     /**
+     * Removes sensitive data from the user.
+     *
+     * This is important if, at any given point, sensitive information like
+     * the plain-text password is stored on this object.
+     */
+    public function eraseCredentials();
+
+    /**
      * Get current user id.
      */
     public function getId(): ?int;
@@ -27,17 +35,49 @@ interface UserInterface
 
     public function setUsername(string $username): self;
 
+    /**
+     * @return string|null
+     */
+    public function getUsernameCanonical(): ?string;
+
+    /**
+     * @param string|null $usernameCanonical
+     *
+     * @return UserInterface
+     */
+    public function setUsernameCanonical(?string $usernameCanonical): self;
+
     public function setEmail(string $email): self;
 
     public function getEmail(): ?string;
+
+    /**
+     * @return string|null
+     */
+    public function getEmailCanonical(): ?string;
+
+    /**
+     * @param string|null $emailCanonical
+     *
+     * @return UserInterface
+     */
+    public function setEmailCanonical(?string $emailCanonical): self;
 
     public function getSalt(): ?string;
 
     public function setSalt(?string $salt): self;
 
-    public function getPassword(): ?string;
+    /**
+     * @return string|null
+     */
+    public function getPassword();
 
-    public function setPassword(?string $password): self;
+    /**
+     * @param string $password
+     *
+     * @return UserInterface
+     */
+    public function setPassword($password);
 
     public function getPlainPassword(): ?string;
 
