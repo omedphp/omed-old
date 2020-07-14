@@ -15,7 +15,7 @@ namespace Tests\Omed\Laravel\Core;
 
 use LaravelDoctrine\ORM\DoctrineServiceProvider;
 use Omed\Laravel\Core\CoreServiceProvider;
-use Omed\Laravel\Core\Test\TestCase;
+use Omed\Laravel\Core\Testing\TestCase;
 
 class CoreServiceProviderTest extends TestCase
 {

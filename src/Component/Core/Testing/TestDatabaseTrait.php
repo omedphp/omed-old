@@ -11,13 +11,13 @@
 
 declare(strict_types=1);
 
-namespace Omed\Component\Core\Test;
+namespace Omed\Component\Core\Testing;
 
 use Doctrine\Common\DataFixtures\Purger\ORMPurger;
-use Doctrine\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\SchemaTool;
 use Doctrine\ORM\Tools\Setup;
+use Doctrine\Persistence\ObjectManager;
 
 trait TestDatabaseTrait
 {

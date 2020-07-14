@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Omed\Component\Core\Test;
+namespace Omed\Component\Core\Testing;
 
 use PHPUnit\Framework\TestCase as BaseTestCase;
 
