@@ -41,7 +41,7 @@
     "require": {
         "php": ">=7.2",
         "doctrine/collections": "^1.6",
-        "doctrine/orm": "^2.6.6|^2.7",
+        "doctrine/orm": "^2.7.3",
         "gedmo/doctrine-extensions": "^2.4",
         "illuminate/auth": "^5.8|^6.0|^7.0",
         "kilip/laravel-alice": "^1.0@dev",
