@@ -16,8 +16,6 @@ function remote()
     git remote add $1 $2 || true
 }
 
-git pull origin $CURRENT_BRANCH
-
 remote orm-component git@github.com:omedphp/orm-component.git
 remote user-component git@github.com:omedphp/user-component.git
 

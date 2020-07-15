@@ -25,4 +25,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v1
       - name: runs splitsh
-        run: ./bin/split.sh
+        run: |
+          export SPLITSH=$PWD/bin/splitsh-lite
+          ./bin/split.sh
