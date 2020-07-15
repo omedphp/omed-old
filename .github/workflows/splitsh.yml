@@ -17,6 +17,10 @@ jobs:
         --tmpfs /tmp:exec
         --tmpfs /var/tmp:exec
     steps:
+      - name: add required packages
+        run: |
+          apk add \
+            git
       - name: Checkout
         uses: actions/checkout@v1
       - name: runs splitsh
