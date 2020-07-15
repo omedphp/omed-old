@@ -24,15 +24,6 @@
             "Omed\\Laravel\\User\\": "src/Laravel/User"
         }
     },
-    "autoload-dev": {
-        "psr-4": {
-            "Tests\\Omed\\Component\\ORM\\": "src/Component/ORM/Tests",
-            "Tests\\Omed\\Component\\User\\": "src/Component/User/Tests",
-            "Tests\\Omed\\Laravel\\ORM\\": "src/Laravel/ORM/Tests",
-            "Tests\\Omed\\Laravel\\Security\\": "src/Laravel/Security/Tests",
-            "Tests\\Omed\\Laravel\\User\\": "src/Laravel/User/Tests"
-        }
-    },
     "scripts": {
         "phpcs": "./vendor/bin/php-cs-fixer fix",
         "phpstan": "./vendor/bin/phpstan analyse --ansi",
