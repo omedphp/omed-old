@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Omed\Laravel\User\Controllers;
+namespace Tests\Omed\Laravel\Auth\Controller;
 
 use Tests\Omed\Laravel\User\UserTestCase;
 
@@ -28,6 +28,9 @@ class AuthControllerTest extends UserTestCase
         $this->assertNotNull($response->json('token'));
         $this->assertNotNull($response->json('type'));
         $this->assertNotNull($response->json('expires'));
+
+        $user = $this->getUserManager()->findByUsername('test');
+        $this->assertNotNull($user->getLastLogin());
     }
 
     public function testFailedLogin()
