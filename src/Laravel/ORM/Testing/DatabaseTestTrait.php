@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Omed\Laravel\Core\Testing;
+namespace Omed\Laravel\ORM\Testing;
 
 use Doctrine\ORM\Tools\SchemaTool;
 use Doctrine\ORM\Tools\ToolsException;

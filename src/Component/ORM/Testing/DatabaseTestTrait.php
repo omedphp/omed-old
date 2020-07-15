@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Omed\Component\Core\Testing;
+namespace Omed\Component\ORM\Testing;
 
 use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 use Doctrine\ORM\EntityManager;
@@ -19,7 +19,7 @@ use Doctrine\ORM\Tools\SchemaTool;
 use Doctrine\ORM\Tools\Setup;
 use Doctrine\Persistence\ObjectManager;
 
-trait TestDatabaseTrait
+trait DatabaseTestTrait
 {
     private static $entityPaths = [];
 

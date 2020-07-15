@@ -11,11 +11,11 @@
 
 declare(strict_types=1);
 
-namespace Omed\Laravel\Core\Testing;
+namespace Omed\Laravel\ORM\Testing;
 
 use Orchestra\Testbench\TestCase as BaseTestCase;
 
-abstract class TestCase extends BaseTestCase
+abstract class ORMTestCase extends BaseTestCase
 {
     protected function getEnvironmentSetUp($app): void
     {
@@ -25,5 +25,12 @@ abstract class TestCase extends BaseTestCase
             'database' => ':memory:',
             'prefix' => '',
         ]);
+
+        $defPath = storage_path('/temp/model');
+        if (!is_dir($defPath)) {
+            mkdir($defPath, 0777, true);
+        }
+        $app['config']->set('doctrine.managers.default.connection', 'sqlite');
+        $app['config']->set('doctrine.managers.default.paths', [$defPath]);
     }
 }

@@ -2,6 +2,6 @@ Omed - Laravel API
 ====
 A demo application api build with Laravel
 
-[![GitHub Actions](https://github.com/omedphp/omed/workflows/CI/badge.svg?branch=master)](https://github.com/omedphp/omed/actions?query=workflow%3ACI+branch%3Amaster)
-[![Codecov](https://codecov.io/gh/omedphp/omed/branch/master/graph/badge.svg)](https://codecov.io/gh/omedphp/omed/branch/master)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/omedphp/omed/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/omedphp/omed/?branch=master)
+[![GitHub](https://img.shields.io/github/workflow/status/omedphp/omed/CI?style=flat-square)](https://github.com/omedphp/omed/actions?query=workflow%3ACI+branch%3Amaster)
+[![Codecov](https://img.shields.io/codecov/c/github/omedphp/omed?style=flat-square)](https://codecov.io/gh/omedphp/omed/branch/master)
+[![Scrutinizer](https://img.shields.io/scrutinizer/quality/g/omedphp/omed?style=flat-square)](https://img.shields.io/scrutinizer/build/g/omedphp/omed?style=flat-square)

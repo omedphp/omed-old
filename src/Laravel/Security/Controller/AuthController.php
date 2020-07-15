@@ -11,7 +11,12 @@
 
 declare(strict_types=1);
 
-namespace Omed\Laravel\User\Controllers;
+namespace Omed\Laravel\Security\Controller;
+
+use Omed\Laravel\User\Controllers\Controller;
+use Omed\Laravel\User\Model\Resource\UserResource;
+use Omed\Laravel\User\Services\UserManager;
+use Omed\Laravel\User\UserEvent;
 
 class AuthController extends Controller
 {
@@ -38,15 +43,18 @@ class AuthController extends Controller
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
+        event(UserEvent::LOGGED_IN, [auth()->user()]);
         return $this->respondWithToken($token);
     }
 
     /**
-     * @return \Illuminate\Http\JsonResponse
+     * @param UserManager $manager
+     *
+     * @return UserResource
      */
-    public function me()
+    public function me(UserManager $manager)
     {
-        return response()->json(auth()->user());
+        return new UserResource(auth()->user());
     }
 
     /**
@@ -56,8 +64,10 @@ class AuthController extends Controller
      */
     public function logout()
     {
+        $user = auth()->user();
         auth()->logout();
 
+        event(UserEvent::LOGGED_OUT, [$user]);
         return response()->json(['message' => 'Successfully logged out']);
     }
 
