@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Omed\Laravel\Auth\Controller;
+namespace Omed\Laravel\Security\Controller;
 
 use Omed\Laravel\User\Controllers\Controller;
 use Omed\Laravel\User\Model\Resource\UserResource;

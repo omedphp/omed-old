@@ -17,20 +17,20 @@
     },
     "autoload": {
         "psr-4": {
-            "Omed\\Component\\Core\\": "src/Component/Core",
+            "Omed\\Component\\ORM\\": "src/Component/ORM",
             "Omed\\Component\\User\\": "src/Component/User",
-            "Omed\\Laravel\\Auth\\": "src/Laravel/Auth",
-            "Omed\\Laravel\\Core\\": "src/Laravel/Core",
+            "Omed\\Laravel\\ORM\\": "src/Laravel/ORM",
+            "Omed\\Laravel\\Security\\": "src/Laravel/Security",
             "Omed\\Laravel\\User\\": "src/Laravel/User"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\Omed\\Component\\Core\\": "src/Component/Core/Tests",
+            "Tests\\Omed\\Component\\ORM\\": "src/Component/ORM/Tests",
             "Tests\\Omed\\Component\\User\\": "src/Component/User/Tests",
-            "Tests\\Omed\\Laravel\\Auth\\": "src/Laravel/Auth/Tests",
-            "Tests\\Omed\\Laravel\\User\\": "src/Laravel/User/Tests",
-            "Tests\\Omed\\Laravel\\Core\\": "src/Laravel/Core/Tests"
+            "Tests\\Omed\\Laravel\\ORM\\": "src/Laravel/ORM/Tests",
+            "Tests\\Omed\\Laravel\\Security\\": "src/Laravel/Security/Tests",
+            "Tests\\Omed\\Laravel\\User\\": "src/Laravel/User/Tests"
         }
     },
     "scripts": {
@@ -48,7 +48,7 @@
         "doctrine/orm": "^2.7.3",
         "gedmo/doctrine-extensions": "^2.4",
         "illuminate/auth": "^7.20",
-        "illuminate/support": "7.20",
+        "illuminate/support": "^7.20",
         "kilip/laravel-alice": "^1.0@dev",
         "laravel/passport": "^9.3.0",
         "laravel-doctrine/extensions": "^1.0",

@@ -1,14 +1,14 @@
 <?php
 
 
-namespace Omed\Laravel\Auth;
+namespace Omed\Laravel\Security;
 
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Omed\Laravel\User\Model\User;
 use Omed\Laravel\User\Passport;
 use Omed\Laravel\User\Policies\ModelPolicy;
 
-class AuthServiceProvider extends ServiceProvider
+class SecurityServiceProvider extends ServiceProvider
 {
     /**
      * The policy mappings for the application.

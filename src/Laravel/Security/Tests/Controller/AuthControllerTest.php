@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Omed\Laravel\Auth\Controller;
+namespace Tests\Omed\Laravel\Security\Controller;
 
 use Tests\Omed\Laravel\User\UserTestCase;
 

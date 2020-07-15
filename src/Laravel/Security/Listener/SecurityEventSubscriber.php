@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Omed\Laravel\User\Listener;
+namespace Omed\Laravel\Security\Listener;
 
 
 use Illuminate\Events\Dispatcher;
@@ -9,7 +9,7 @@ use Omed\Component\User\Manager\UserManagerInterface;
 use Omed\Laravel\User\Model\User;
 use Omed\Laravel\User\UserEvent;
 
-class AuthEventSubscriber
+class SecurityEventSubscriber
 {
     /**
      * @var UserManagerInterface
