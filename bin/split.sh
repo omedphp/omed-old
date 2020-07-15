@@ -4,6 +4,7 @@ set -e
 set -x
 
 CURRENT_BRANCH="master"
+SPLITSH="${PWD}/bin/splitsh-lite"
 
 function split()
 {
@@ -24,7 +25,7 @@ remote laravel-security git@github.com:omedphp/laravel-security.git
 remote laravel-user git@github.com:omedphp/laravel-user.git
 
 split 'src/Component/ORM' orm-component
-split 'src/Component/User' User-component
+split 'src/Component/User' user-component
 split 'src/Laravel/ORM' laravel-orm
 split 'src/Laravel/Security' laravel-security
-split 'src/Laravel/user' laravel-user
+split 'src/Laravel/User' laravel-user
