@@ -12,7 +12,7 @@ jobs:
     name: Split repository
     runs-on: ubuntu-latest
     container:
-      image: php:${{ matrix.php }}-alpine
+      image: php:7.4-alpine
       options: >-
         --tmpfs /tmp:exec
         --tmpfs /var/tmp:exec
