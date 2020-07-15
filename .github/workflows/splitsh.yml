@@ -1,0 +1,21 @@
+name: Split Repository
+on:
+  push:
+    branch: [master]
+  pull_request:
+    types: [closed, merged]
+    branch: [master]
+    if: github.event.pull_request.merged == 'true'
+
+jobs:
+  split:
+    name: Split repository
+    runs-on: ubuntu-latest
+    container:
+      image: php:${{ matrix.php }}-alpine
+      options: >-
+        --tmpfs /tmp:exec
+        --tmpfs /var/tmp:exec
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
