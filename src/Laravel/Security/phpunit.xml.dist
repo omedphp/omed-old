@@ -3,7 +3,7 @@
          backupStaticAttributes="false"
          beStrictAboutTestsThatDoNotTestAnything="true"
          beStrictAboutOutputDuringTests="true"
-         bootstrap="vendor/autoload.php"
+         bootstrap="./vendor/autoload.php"
          colors="true"
          convertErrorsToExceptions="true"
          convertNoticesToExceptions="true"
@@ -22,18 +22,19 @@
         <env name="DB_FOREIGN_KEYS" value="true"/>
     </php>
     <testsuites>
-        <testsuite name="Omed Test Suite">
-            <directory suffix="Test.php">./src/*/*/Tests</directory>
+        <testsuite name="Omed User Component Test Suite">
+            <directory suffix="Test.php">./Tests</directory>
         </testsuite>
     </testsuites>
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">./src</directory>
+            <directory suffix=".php">./</directory>
             <exclude>
-                <directory>./src/*/*/Testing</directory>
-                <directory>./src/*/*/Spec</directory>
-                <directory>./src/*/*/Tests</directory>
-                <directory>./src/*/*/Resources</directory>
+                <directory>.github</directory>
+                <directory>Testing</directory>
+                <directory>Tests</directory>
+                <directory>Resources</directory>
+                <directory>vendor</directory>
             </exclude>
         </whitelist>
     </filter>

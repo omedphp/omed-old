@@ -11,10 +11,8 @@
 
 declare(strict_types=1);
 
-namespace Omed\Laravel\User;
-
-class UserEvent
-{
-    public const LOGGED_IN = 'omed.user.login';
-    public const LOGGED_OUT = 'omed.user.logout';
-}
+return [
+    'model' => [
+        'user' => config('auth.providers.users.model'),
+    ],
+];

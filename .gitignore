@@ -2,5 +2,7 @@ composer.lock
 vendor
 /build/
 !build/.gitkeep
+/var/
+!var/.gitkeep
 .phpunit.result.cache
 .php_cs.cache

@@ -1,6 +1,6 @@
 {
     "name": "omed/laravel-security",
-    "description": "Security package for Omed",
+    "description": "Laravel Security Package for Omed Project",
     "type": "library",
     "license": "MIT",
     "authors": [
@@ -9,7 +9,7 @@
             "email": "me@itstoni.com"
         }
     ],
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "prefer-stable": true,
     "config": {
         "preferred-install": "dist",
@@ -22,14 +22,16 @@
     },
     "autoload": {
         "psr-4": {
-            "Omed\\Component\\Security\\": "./"
+            "Omed\\Laravel\\Security\\": "./"
         }
     },
     "require": {
-        "omed/orm-component": "^1.0@dev",
-        "symfony/security-core": "^3.4|^4.0|^5.0"
+        "php": "^7.2",
+        "kilip/sanctum-orm": "^1.0@dev",
+        "omed/laravel-orm": "^1.0@dev"
     },
     "require-dev": {
+        "gedmo/doctrine-extensions": "^2.4",
         "orchestra/testbench": "^5.0",
         "phpunit/phpunit": "^8.5.8"
     }

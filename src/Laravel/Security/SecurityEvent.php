@@ -11,10 +11,10 @@
 
 declare(strict_types=1);
 
-namespace Omed\Laravel\User;
+namespace Omed\Laravel\Security;
 
-class UserEvent
+class SecurityEvent
 {
-    public const LOGGED_IN = 'omed.user.login';
-    public const LOGGED_OUT = 'omed.user.logout';
+    public const LOGIN = 'omed.security.login';
+    public const LOGOUT = 'omed.security.logout';
 }

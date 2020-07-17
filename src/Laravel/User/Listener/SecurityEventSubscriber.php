@@ -1,8 +1,17 @@
 <?php
 
+/*
+ * This file is part of the Omed project.
+ *
+ * (c) Anthonius Munthi <https://itstoni.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
-namespace Omed\Laravel\Security\Listener;
+declare(strict_types=1);
 
+namespace Omed\Laravel\User\Listener;
 
 use Illuminate\Events\Dispatcher;
 use Omed\Component\User\Manager\UserManagerInterface;
@@ -29,7 +38,6 @@ class SecurityEventSubscriber
 
     public function handleLogout()
     {
-
     }
 
     /**
@@ -37,7 +45,7 @@ class SecurityEventSubscriber
      */
     public function subscribe(Dispatcher $events)
     {
-        $events->listen(UserEvent::LOGGED_IN,[$this,'handleLogin']);
+        $events->listen(UserEvent::LOGGED_IN, [$this, 'handleLogin']);
         $events->listen(UserEvent::LOGGED_OUT, [$this, 'handleLogout']);
     }
 
