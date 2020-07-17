@@ -10,8 +10,9 @@ parameters:
 		- src/Component/Core/Tests
 		- src/Laravel/User/Tests
 		- src/Laravel/User/Spec
-
 		- src/Laravel/User/Controllers
+		- src/Laravel/Security/vendor
+		- src/Laravel/ORM/vendor
 	earlyTerminatingMethodCalls:
 		PHPUnit\Framework\Constraint\Constraint:
 			- fail
@@ -21,4 +22,3 @@ parameters:
 	    - '#Parameter \#2 \$listener of method#'
 	    - '#TestIlluminateRegistry#'
 	    - '#Doctrine\\Persistence\\ObjectManager given#'
-	    - '#ObjectManager::getEventManager\(\)#'

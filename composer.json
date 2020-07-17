@@ -24,6 +24,10 @@
             "Omed\\Laravel\\User\\": "src/Laravel/User"
         }
     },
+    "replace": {
+        "omed/orm-component": "self.version",
+        "omed/laravel-orm": "self.version"
+    },
     "scripts": {
         "phpcs": "./vendor/bin/php-cs-fixer fix",
         "phpstan": "./vendor/bin/phpstan analyse --ansi",
@@ -32,6 +36,11 @@
             "@phpstan",
             "@phpunit"
         ]
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
     },
     "require": {
         "php": ">=7.2",
