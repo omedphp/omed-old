@@ -1,16 +1,20 @@
 <?php
 
+/*
+ * This file is part of the Omed project.
+ *
+ * (c) Anthonius Munthi <https://itstoni.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+declare(strict_types=1);
 
 namespace Omed\Laravel\Core\Tests;
 
-use Kilip\LaravelDoctrine\ORM\KilipDoctrineServiceProvider;
-use Kilip\SanctumORM\SanctumORMServiceProvider;
-use Laravel\Sanctum\SanctumServiceProvider;
-use LaravelDoctrine\Extensions\GedmoExtensionsServiceProvider;
-use LaravelDoctrine\ORM\DoctrineServiceProvider;
 use Omed\Laravel\Core\CoreServiceProvider;
 use Omed\Laravel\Core\Tests\Http\Controllers\TestApiController;
-use Omed\Laravel\Security\SecurityServiceProvider;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
 
 class TestCase extends OrchestraTestCase
@@ -24,7 +28,7 @@ class TestCase extends OrchestraTestCase
     protected function getPackageProviders($app)
     {
         return [
-            CoreServiceProvider::class
+            CoreServiceProvider::class,
         ];
     }
 
