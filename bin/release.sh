@@ -52,7 +52,7 @@ git tag $VERSION
 git push origin --tags
 
 # Tag Components
-for REMOTE in orm-component user-component laravel-orm laravel-security laravel-user
+for REMOTE in orm-component user-component laravel-orm laravel-security laravel-user laravel-pack
 do
     echo ""
     echo ""
