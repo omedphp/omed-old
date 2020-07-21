@@ -33,7 +33,7 @@
   "require": {
     "php": "^7.2",
     "illuminate/support": "^7.20",
-    "doctrine/inflector": "^2.0"
+    "doctrine/inflector": "^1.4|^2.0"
   },
   "require-dev": {
     "orchestra/testbench": "^5.0",
