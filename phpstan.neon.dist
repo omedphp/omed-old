@@ -13,6 +13,7 @@ parameters:
 		- src/Laravel/User/Controllers
 		- src/Component/ORM/vendor
 		- src/Component/User/vendor
+		- src/Laravel/Core/vendor
 		- src/Laravel/ORM/vendor
 		- src/Laravel/Security/vendor
 		- src/Laravel/User/vendor

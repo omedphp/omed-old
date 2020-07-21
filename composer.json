@@ -19,6 +19,7 @@
         "psr-4": {
             "Omed\\Component\\ORM\\": "src/Component/ORM",
             "Omed\\Component\\User\\": "src/Component/User",
+            "Omed\\Laravel\\Core\\": "src/Laravel/Core",
             "Omed\\Laravel\\ORM\\": "src/Laravel/ORM",
             "Omed\\Laravel\\Security\\": "src/Laravel/Security",
             "Omed\\Laravel\\User\\": "src/Laravel/User"
