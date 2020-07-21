@@ -1,0 +1,42 @@
+{
+  "name": "omed/laravel-core",
+  "description": "Laravel Core Package for Omed Project",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Anthonius Munthi",
+      "email": "me@itstoni.com"
+    }
+  ],
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "config": {
+    "preferred-install": "dist",
+    "sort-packages": true
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "1.0-dev"
+    },
+    "laravel": {
+      "providers": [
+        "Omed\\Laravel\\Core\\CoreServiceProvider"
+      ]
+    }
+  },
+  "autoload": {
+    "psr-4": {
+      "Omed\\Laravel\\Core\\": "./"
+    }
+  },
+  "require": {
+    "php": "^7.2",
+    "illuminate/support": "^7.20",
+    "doctrine/inflector": "^2.0"
+  },
+  "require-dev": {
+    "orchestra/testbench": "^5.0",
+    "phpunit/phpunit": "^8.5.8"
+  }
+}
