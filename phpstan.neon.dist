@@ -20,5 +20,5 @@ parameters:
 	    - '#undefined static method#'
 	    - '#PHPDoc tag @var does not match assigned variable#'
 	    - '#Parameter \#2 \$listener of method#'
-	    - '#TestIlluminateRegistry#'
 	    - '#Doctrine\\Persistence\\ObjectManager given#'
+	    - '#MappingDriver::addPaths#'
