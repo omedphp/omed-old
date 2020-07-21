@@ -63,9 +63,8 @@ jobs:
         continue-on-error: true
       - name: Run PHPStan analysis
         run: vendor/bin/phpstan analyse --ansi
-
   phpunit:
-    name: Test PHP-${{ matrix.php }}) ${{ matrix.dependency-version }}
+    name: Test PHP-${{ matrix.php }} ${{ matrix.dependency-version }}
     runs-on: ubuntu-latest
     container:
       image: php:${{ matrix.php }}-alpine
