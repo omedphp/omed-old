@@ -11,8 +11,11 @@ parameters:
 		- src/Laravel/User/Tests
 		- src/Laravel/User/Spec
 		- src/Laravel/User/Controllers
-		- src/Laravel/Security/vendor
+		- src/Component/ORM/vendor
+		- src/Component/User/vendor
 		- src/Laravel/ORM/vendor
+		- src/Laravel/Security/vendor
+		- src/Laravel/User/vendor
 	earlyTerminatingMethodCalls:
 		PHPUnit\Framework\Constraint\Constraint:
 			- fail
