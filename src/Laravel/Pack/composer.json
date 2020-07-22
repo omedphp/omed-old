@@ -1,0 +1,29 @@
+{
+  "name": "omed/laravel-pack",
+  "description": "A pack for Omed Laravel Integration",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Anthonius Munthi",
+      "email": "me@itstoni.com"
+    }
+  ],
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "config": {
+    "preferred-install": "dist",
+    "sort-packages": true
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "1.0-dev"
+    }
+  },
+  "require": {
+    "php": "^7.2",
+    "omed/laravel-core": "^1.0@dev",
+    "omed/laravel-security": "^1.0@dev",
+    "omed/laravel-user": "^1.0@dev"
+  }
+}

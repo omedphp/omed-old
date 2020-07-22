@@ -10,13 +10,19 @@ parameters:
 		- src/Component/Core/Tests
 		- src/Laravel/User/Tests
 		- src/Laravel/User/Spec
-
 		- src/Laravel/User/Controllers
+		- src/Component/ORM/vendor
+		- src/Component/User/vendor
+		- src/Laravel/Core/vendor
+		- src/Laravel/ORM/vendor
+		- src/Laravel/Security/vendor
+		- src/Laravel/User/vendor
 	earlyTerminatingMethodCalls:
 		PHPUnit\Framework\Constraint\Constraint:
 			- fail
 	ignoreErrors:
-	    - '#Guard::#'
 	    - '#undefined static method#'
 	    - '#PHPDoc tag @var does not match assigned variable#'
 	    - '#Parameter \#2 \$listener of method#'
+	    - '#Doctrine\\Persistence\\ObjectManager given#'
+	    - '#MappingDriver::addPaths#'

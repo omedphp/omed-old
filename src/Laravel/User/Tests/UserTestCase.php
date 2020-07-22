@@ -13,53 +13,48 @@ declare(strict_types=1);
 
 namespace Omed\Laravel\User\Tests;
 
-use Kilip\Laravel\Alice\AliceServiceProvider;
-use Kilip\Laravel\Alice\Testing\ORM\RefreshDatabaseTrait;
+use Kilip\LaravelDoctrine\ORM\KilipDoctrineServiceProvider;
+use Kilip\LaravelDoctrine\ORM\Testing\ORMTestTrait;
+use Kilip\SanctumORM\SanctumORMServiceProvider;
+use Laravel\Sanctum\SanctumServiceProvider;
 use LaravelDoctrine\Extensions\GedmoExtensionsServiceProvider;
 use LaravelDoctrine\ORM\DoctrineServiceProvider;
-use LaravelDoctrine\ORM\Facades\Doctrine;
-use LaravelDoctrine\ORM\Facades\EntityManager;
-use LaravelDoctrine\ORM\Facades\Registry;
 use Omed\Component\User\Model\UserInterface;
-use Omed\Laravel\ORM\ORMServiceProvider;
+use Omed\Laravel\Security\SecurityServiceProvider;
+use Omed\Laravel\User\Model\User;
+use Omed\Laravel\User\SecurityEventServiceProvider;
 use Omed\Laravel\User\Testing\UserManagerTrait;
-use Omed\Laravel\Security\SecurityEventServiceProvider;
 use Omed\Laravel\User\UserServiceProvider;
-use Omed\Laravel\ORM\Testing\ORMTestCase;
-use Tymon\JWTAuth\Providers\LaravelServiceProvider as JWTAuthServiceProvider;
+use Orchestra\Testbench\TestCase as OrchestraTestCase;
 
-class UserTestCase extends ORMTestCase
+class UserTestCase extends OrchestraTestCase
 {
     use UserManagerTrait;
-    use RefreshDatabaseTrait;
+    use ORMTestTrait;
 
     protected function setUp(): void
     {
         parent::setUp();
-        $this->refreshDatabase();
+        $this->recreateDatabase();
     }
 
     protected function getPackageProviders($app)
     {
         return [
-            JWTAuthServiceProvider::class,
-            GedmoExtensionsServiceProvider::class,
-            ORMServiceProvider::class,
             DoctrineServiceProvider::class,
-            AliceServiceProvider::class,
+            GedmoExtensionsServiceProvider::class,
+            KilipDoctrineServiceProvider::class,
+            SanctumServiceProvider::class,
+            SanctumORMServiceProvider::class,
+            SecurityServiceProvider::class,
             UserServiceProvider::class,
-            SecurityEventServiceProvider::class
+            SecurityEventServiceProvider::class,
         ];
     }
 
     protected function getPackageAliases($app)
     {
         return [
-            'Registry' => Registry::class,
-            'EntityManager' => EntityManager::class,
-            'Doctrine' => Doctrine::class,
-            'JWTAuth' => 'Tymon\JWTAuth\Facades\JWTAuth',
-            'JWTFactory' => 'Tymon\JWTAuth\Facades\JWTFactory',
         ];
     }
 
@@ -81,11 +76,14 @@ class UserTestCase extends ORMTestCase
         $app['config']->set('alice.doctrine_orm.default.paths', [
             __DIR__.'/Resources/fixtures',
         ]);
-        $app['config']->set('alice.doctrine_orm.default.manager', 'omed_user');
+        $app['config']->set('alice.doctrine_orm.default.manager', 'default');
+        $app['config']->set('sanctum.orm.models.user', User::class);
     }
 
     /**
-     * @return UserInterface
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     *
+     * @return object|UserInterface|null
      */
     protected function generateUserData()
     {

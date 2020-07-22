@@ -14,16 +14,22 @@ declare(strict_types=1);
 namespace Omed\Laravel\User\Model;
 
 use DateTime;
-use Illuminate\Contracts\Auth\Authenticatable as AuthenticableInterface;
+use Kilip\SanctumORM\Contracts\SanctumUserInterface;
+use Kilip\SanctumORM\Model\SanctumUserTrait;
 use LaravelDoctrine\Extensions\Timestamps\Timestamps;
 use LaravelDoctrine\ORM\Auth\Authenticatable as AuthenticableTrait;
 use Omed\Component\User\Model\User as BaseUser;
-use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends BaseUser implements AuthenticableInterface, JWTSubject
+class User extends BaseUser implements SanctumUserInterface
 {
     use AuthenticableTrait;
+    use SanctumUserTrait;
     use Timestamps;
+
+    /**
+     * @var string
+     */
+    protected $id;
 
     /**
      * @var DateTime|null
@@ -36,21 +42,19 @@ class User extends BaseUser implements AuthenticableInterface, JWTSubject
     protected $updatedAt;
 
     /**
+     * @return string
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
      * @return string|null
      */
     public function getPassword()
     {
         return $this->password;
-    }
-
-    public function getJWTIdentifier()
-    {
-        return $this->getId();
-    }
-
-    public function getJWTCustomClaims()
-    {
-        return [];
     }
 
     /**

@@ -19,10 +19,15 @@
         "psr-4": {
             "Omed\\Component\\ORM\\": "src/Component/ORM",
             "Omed\\Component\\User\\": "src/Component/User",
+            "Omed\\Laravel\\Core\\": "src/Laravel/Core",
             "Omed\\Laravel\\ORM\\": "src/Laravel/ORM",
             "Omed\\Laravel\\Security\\": "src/Laravel/Security",
             "Omed\\Laravel\\User\\": "src/Laravel/User"
         }
+    },
+    "replace": {
+        "omed/orm-component": "self.version",
+        "omed/laravel-orm": "self.version"
     },
     "scripts": {
         "phpcs": "./vendor/bin/php-cs-fixer fix",
@@ -33,6 +38,11 @@
             "@phpunit"
         ]
     },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    },
     "require": {
         "php": ">=7.2",
         "doctrine/collections": "^1.6",
@@ -41,11 +51,10 @@
         "illuminate/auth": "^7.20",
         "illuminate/support": "^7.20",
         "kilip/laravel-alice": "^1.0@dev",
-        "laravel/passport": "^9.3.0",
+        "kilip/laravel-doctrine-orm": "^1.0@dev",
+        "kilip/sanctum-orm": "^1.0@dev",
         "laravel-doctrine/extensions": "^1.0",
-        "laravel-doctrine/orm": "^1.4.18|^1.5|^1.6",
-        "symfony/security-core": "^3.4|^4.0|^5.0",
-        "tymon/jwt-auth": "^1.0"
+        "symfony/security-core": "^3.4|^4.0|^5.0"
     },
     "require-dev": {
         "doctrine/data-fixtures": "^1.4",

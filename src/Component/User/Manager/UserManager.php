@@ -100,6 +100,16 @@ class UserManager implements UserManagerInterface
     }
 
     /**
+     * @param string|int $id
+     *
+     * @return object|UserInterface|null
+     */
+    public function findById($id)
+    {
+        return $this->findUserBy(['id' => $id]);
+    }
+
+    /**
      * @param string $username
      *
      * @return object|UserInterface|null

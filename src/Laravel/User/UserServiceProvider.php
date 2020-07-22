@@ -14,14 +14,14 @@ declare(strict_types=1);
 namespace Omed\Laravel\User;
 
 use Doctrine\Persistence\ObjectManager;
-use Illuminate\Filesystem\Filesystem;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\ServiceProvider;
+use Kilip\SanctumORM\Contracts\SanctumUserInterface;
 use LaravelDoctrine\ORM\IlluminateRegistry;
 use Omed\Component\User\Manager\UserManagerInterface;
-use Omed\Laravel\Security\Controller\AuthController;
-use Omed\Laravel\User\Controllers\UserController;
+use Omed\Component\User\UserComponent;
+use Omed\Laravel\User\Http\Controllers\UserController;
 use Omed\Laravel\User\Model\User;
 use Omed\Laravel\User\Services\PasswordUpdater;
 use Omed\Laravel\User\Services\UserManager;
@@ -29,17 +29,17 @@ use Symfony\Component\Security\Core\Encoder\EncoderFactory;
 
 class UserServiceProvider extends ServiceProvider
 {
-    public function boot(Filesystem $filesystem): void
+    public function boot(): void
     {
         if (\function_exists('config_path')) {
             // function not available and 'publish' not relevant in Lumen
             $this->publishes([
-                __DIR__.'/Resources/config/user.php' => config_path('omed_user.php'),
+                __DIR__.'/Resources/config/user.php' => config_path('omed/user.php'),
             ], 'config');
         }
 
         $app = $this->app;
-        $this->loadRoutesFrom(__DIR__.'/Resources/config/routes.php');
+        $this->loadRoutesFrom(__DIR__.'/Resources/routes/routes.php');
 
         $app->bind(PasswordUpdater::class, function ($app) {
             $encoderFactory = new EncoderFactory(['user' => [
@@ -50,9 +50,9 @@ class UserServiceProvider extends ServiceProvider
             return new PasswordUpdater($encoderFactory);
         });
 
-        $app->bind(UserManager::class, function (Application $app) {
+        $app->singleton(UserManager::class, function (Application $app) {
             /** @var string $userModel */
-            $userModel = config('omed_user.models.user');
+            $userModel = config('omed.user.models.user');
             /** @var IlluminateRegistry $registry */
             $registry = $app->get('registry');
 
@@ -71,16 +71,23 @@ class UserServiceProvider extends ServiceProvider
         config(['hashing.driver' => 'omed_encryption']);
 
         $app->alias(UserController::class, 'OmedUserController');
-        $app->alias(AuthController::class, 'OmedAuthController');
     }
 
     public function register(): void
     {
         $this->mergeConfigFrom(
             __DIR__.'/Resources/config/user.php',
-            'omed_user'
+            'omed.user'
         );
+
         $this->configureDoctrine();
+    }
+
+    public function provides()
+    {
+        return [
+            UserManagerInterface::class,
+        ];
     }
 
     public static function getDoctrineXMLSchemaPath()
@@ -92,13 +99,34 @@ class UserServiceProvider extends ServiceProvider
     {
         /** @var \Illuminate\Config\Repository $config */
         $config = $this->app['config'];
-        $managerConfig = config('omed_user.doctrine_manager_config');
 
-        $config->set('auth.model', User::class);
-        $config->set('auth.defaults.guard', 'api');
-        $config->set('auth.guards.api.driver', 'jwt');
+        $mappings = [
+            'Omed\\Component\\User\\Model' => [
+                'type' => 'xml',
+                'dir' => UserComponent::getDoctrineXMLSchemaPath(),
+            ],
+            'Omed\\Laravel\\User\\Model' => [
+                'type' => 'xml',
+                'dir' => self::getDoctrineXMLSchemaPath(),
+            ],
+        ];
+
+        $configKey = 'doctrine.managers.'.config('omed.user.manager_name', 'default').'.mappings';
+
+        config([
+            $configKey => array_merge(
+                $mappings,
+                config($configKey, [])
+            ),
+            'doctrine.resolve_target_entities' => array_merge(
+                [
+                    SanctumUserInterface::class => User::class,
+                ],
+                config('doctrine.resolve_target_entities', [])
+            ),
+        ]);
+
         $config->set('auth.providers.users.model', User::class);
         $config->set('auth.providers.users.driver', 'doctrine');
-        $config->set('doctrine.managers.omed_user', $managerConfig);
     }
 }

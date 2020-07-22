@@ -1,6 +1,6 @@
 {
     "name": "omed/user-component",
-    "description": "User Component for Omed",
+    "description": "User component for Omed",
     "type": "library",
     "license": "MIT",
     "authors": [
@@ -26,7 +26,8 @@
         }
     },
     "require": {
-        "omed/orm-component": "^1.0@dev"
+        "omed/orm-component": "^1.0@dev",
+        "symfony/security-core": "^3.4|^4.0|^5.0"
     },
     "require-dev": {
         "orchestra/testbench": "^5.0",

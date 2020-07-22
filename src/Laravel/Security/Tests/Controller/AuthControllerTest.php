@@ -13,77 +13,36 @@ declare(strict_types=1);
 
 namespace Omed\Laravel\Security\Tests\Controller;
 
-use Omed\Laravel\User\Tests\UserTestCase;
+use Omed\Laravel\Security\Testing\AuthTestTrait;
+use Omed\Laravel\Security\Tests\TestCase;
 
-class AuthControllerTest extends UserTestCase
+class AuthControllerTest extends TestCase
 {
+    use AuthTestTrait;
+
     public function testLogin()
     {
-        $this->generateUserData();
-        $response = $this->json('post', route('omed.auth.login'), [
-            'email' => 'test@example.com',
+        $this->createUser();
+        $response = $this->post(route('omed.security.routes.login'), [
+            'usernameOrEmail' => 'test@example.com',
             'password' => 'test',
         ]);
-        $response->assertStatus(200);
-        $this->assertNotNull($response->json('token'));
-        $this->assertNotNull($response->json('type'));
-        $this->assertNotNull($response->json('expires'));
 
-        $user = $this->getUserManager()->findByUsername('test');
-        $this->assertNotNull($user->getLastLogin());
+        $response->assertStatus(200);
+
+        $token = $response->json('plainTextToken');
+        $this->assertNotNull($token);
     }
 
     public function testFailedLogin()
     {
-        $this->generateUserData();
-
-        $response = $this->json('post', route('omed.auth.login'), [
-            'email' => 'test@example.com',
-            'password' => 'some',
+        $this->createUser();
+        $response = $this->post(route('omed.security.routes.login'), [
+            'usernameOrEmail' => 'test@example.com',
+            'password' => 'foo',
         ]);
-
         $response->assertStatus(401);
-        $this->assertEquals('Unauthorized', $response->json('error'));
-    }
-
-    public function testProfileLink()
-    {
-        $user = $this->generateUserData();
-        $token = $this->generateToken($user);
-
-        $response = $this->json('post', route('omed.auth.profile'), [], [
-            'Authorization' => 'Bearer '.$token,
-        ]);
-
-        $json = $response->json();
-        $data = $json['data'];
-        $response->assertStatus(200);
-        $this->assertEquals($user->getUsername(), $data['username']);
-    }
-
-    public function testLogout()
-    {
-        $user = $this->generateUserData();
-        $token = $this->generateToken($user);
-
-        $response = $this->json('post', route('omed.auth.logout'), [], [
-            'Authorization' => 'Bearer '.$token,
-        ]);
-
-        $response->assertStatus(200);
-        $this->assertEquals('Successfully logged out', $response->json('message'));
-    }
-
-    public function testRefresh()
-    {
-        $user = $this->generateUserData();
-        $token = $this->generateToken($user);
-
-        $response = $this->json('post', route('omed.auth.refresh'), [], [
-            'Authorization' => 'Bearer '.$token,
-        ]);
-
-        $response->assertStatus(200);
-        $this->assertNotEquals($token, $response->json('token'));
+        $this->assertIsArray($response->json('usernameOrEmail'));
+        $this->assertContains('The provided credentials are incorrect.', $response->json('usernameOrEmail'));
     }
 }

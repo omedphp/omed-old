@@ -13,29 +13,39 @@ declare(strict_types=1);
 
 namespace Omed\Laravel\User\Testing;
 
-use Omed\Component\User\Model\UserInterface;
+use Kilip\SanctumORM\Contracts\SanctumUserInterface;
+use Kilip\SanctumORM\Manager\TokenManagerInterface;
 use Omed\Laravel\User\Services\UserManager;
-use Tymon\JWTAuth\JWT;
 
 trait UserManagerTrait
 {
     /**
-     * @param UserInterface $user
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      *
-     * @return string|null
-     */
-    public function generateToken(UserInterface $user)
-    {
-        $jwt = app()->get(JWT::class);
-
-        return $jwt->fromUser($user);
-    }
-
-    /**
      * @return UserManager
      */
     public function getUserManager()
     {
-        return app()->get('omed.managers.user');
+        return app()->make('omed.managers.user');
+    }
+
+    /**
+     * @return TokenManagerInterface
+     */
+    public function getTokenManager()
+    {
+        return app()->get(TokenManagerInterface::class);
+    }
+
+    /**
+     * @param SanctumUserInterface $user
+     * @param string               $name
+     * @param array                $abilities
+     *
+     * @return \Kilip\SanctumORM\Security\NewAccessToken
+     */
+    public function createToken(SanctumUserInterface $user, $name = 'phpunit', $abilities = ['*'])
+    {
+        return $this->getTokenManager()->createToken($user, $name, $abilities);
     }
 }

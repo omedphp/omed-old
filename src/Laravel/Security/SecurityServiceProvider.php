@@ -1,50 +1,65 @@
 <?php
 
+/*
+ * This file is part of the Omed project.
+ *
+ * (c) Anthonius Munthi <https://itstoni.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+declare(strict_types=1);
 
 namespace Omed\Laravel\Security;
 
-use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
-use Omed\Laravel\User\Model\User;
-use Laravel\Passport\Passport;
-use Omed\Laravel\User\Policies\ModelPolicy;
+use Illuminate\Foundation\Application;
+use Illuminate\Support\ServiceProvider;
+use Kilip\SanctumORM\Contracts\TokenModelInterface;
+use Omed\Laravel\Security\Controller\AuthController;
+use Omed\Laravel\Security\Model\Tokens;
 
 class SecurityServiceProvider extends ServiceProvider
 {
-    /**
-     * The policy mappings for the application.
-     *
-     * @var array
-     */
-    protected $policies = [
-        User::class => ModelPolicy::class,
-    ];
-
-    /**
-     * Register any authentication / authorization services.
-     *
-     * @return void
-     */
-    public function boot()
+    public function boot(Application $app)
     {
-        $this->registerPolicies();
-        Passport::routes();
+        $app->alias(AuthController::class, 'omed.security.controller.auth');
+
+        $app['config']->set('auth.guards.api.driver', 'sanctum');
+        $this->loadRoutesFrom(__DIR__.'/Resources/routes/api.php');
     }
 
     public function register()
     {
-        $this->configureAuth();
+        $this->configureModel();
     }
 
-    private function configureAuth()
+    private function configureModel()
     {
-        /** @var \Illuminate\Config\Repository $config */
-        $config = $this->app['config'];
+        $mappings = [
+            __NAMESPACE__.'\\Model' => [
+                'type' => 'annotation',
+                'dir' => __DIR__.'/Model',
+            ],
+        ];
+        $key = 'doctrine.managers.'.config('omed_security.entity_manager_name', 'default').'.mappings';
+        $mappings = array_merge($mappings, config($key, []));
+        config([
+            $key => $mappings,
+        ]);
 
-        $config->set('auth.model', User::class);
-        $config->set('auth.defaults.guard', 'api');
-        $config->set('auth.guards.api.driver', 'jwt');
-        $config->set('auth.providers.users.model', User::class);
-        $config->set('auth.providers.users.driver', 'doctrine');
+        // configure target entities
+        $resolves = config('doctrine.resolve_target_entities', []);
+        $resolves = array_merge([
+            TokenModelInterface::class => Tokens::class,
+        ], $resolves);
+
+        config([
+            'doctrine.resolve_target_entities' => array_merge(
+                $resolves,
+                config('doctrine.resolve_target_entities', [])
+            ),
+            'sanctum.orm.models.token' => Tokens::class,
+        ]);
     }
-
 }
