@@ -32,8 +32,11 @@
   },
   "require": {
     "php": "^7.2",
+    "doctrine/inflector": "^1.4.3|^2.0",
+    "gedmo/doctrine-extensions": "^2.4",
     "illuminate/support": "^7.20",
-    "doctrine/inflector": "^1.4.3|^2.0"
+    "kilip/laravel-doctrine-orm": "^1.0@dev",
+    "laravel-doctrine/extensions": "^1.2"
   },
   "require-dev": {
     "orchestra/testbench": "^5.0",
