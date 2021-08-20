@@ -1,0 +1,14 @@
+version: '3'
+services:
+  postgres:
+    container_name: omed.postgres
+    image: postgres:13
+    environment:
+      POSTGRES_DB: northwind
+      POSTGRES_USER: northwind
+      POSTGRES_PASSWORD: northwind
+    volumes:
+      - ./var/data:/var/lib/postgresql/data
+      - ./docker/postgres/northwind.sql:/docker-entrypoint-initdb.d/northwind.sql
+    ports:
+      - "5432:5432"
