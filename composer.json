@@ -1,0 +1,37 @@
+{
+    "name": "omed/omed",
+    "description": "A Demo Application",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Anthonius Munthi",
+            "email": "me@itstoni.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.4"
+    },
+    "require-dev": {
+        "phpspec/phpspec": "^7.1",
+        "phpunit/phpunit": "^9.5",
+        "phpstan/phpstan": "^0.12.94",
+        "phpstan/extension-installer": "^1.1",
+        "phpstan/phpstan-doctrine": "^0.12.43",
+        "phpstan/phpstan-phpunit": "^0.12.22",
+        "friends-of-phpspec/phpspec-code-coverage": "^6.1",
+        "vimeo/psalm": "^4.9",
+        "doctrine/orm": "^2.9",
+        "doctrine/mongodb-odm": "^2.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Omed\\": "./src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "spec\\Omed\\": "./spec"
+        }
+    }
+}
