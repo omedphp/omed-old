@@ -1,0 +1,11 @@
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping">
+    <entity name="Omed\Component\User\Model\User" table="omed_user">
+        <id name="id" type="string">
+            <generator strategy="UUID"/>
+        </id>
+        <field name="username"/>
+        <field name="email"/>
+        <field name="password"/>
+        <field name="fullName" nullable="true"/>
+    </entity>
+</doctrine-mapping>

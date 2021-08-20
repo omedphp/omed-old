@@ -9,6 +9,7 @@
     <projectFiles>
         <directory name="src" />
         <ignoreFiles>
+            <directory name="spec"/>
             <directory name="vendor" />
         </ignoreFiles>
     </projectFiles>
