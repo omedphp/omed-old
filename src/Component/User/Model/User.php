@@ -5,6 +5,9 @@ namespace Omed\Component\User\Model;
 use Omed\Component\Resource\Model\ToggleableTrait;
 use Omed\Contracts\User\UserInterface;
 
+/**
+ * @psalm-suppress MissingConstructor
+ */
 class User implements UserInterface
 {
     use ToggleableTrait;

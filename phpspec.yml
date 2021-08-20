@@ -2,14 +2,3 @@ suites:
   omed_component:
     namespace: Omed
     psr4_prefix: Omed
-extensions:
-  FriendsOfPhpSpec\PhpSpec\CodeCoverage\CodeCoverageExtension:
-    format:
-      - clover
-      - html
-      - text
-    output:
-      clover: build/logs/clover.xml
-      html: build/logs/html
-    whitelist:
-      - src
