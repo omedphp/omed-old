@@ -1,0 +1,12 @@
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping">
+    <entity name="Omed\Component\Customer\Model\CustomerDemographics" table="customer_customer_demo">
+        <id name="customer" association-key="true" />
+        <id name="demographics" association-key="true"/>
+        <many-to-one field="customer" target-entity="Omed\Contracts\Customer\CustomerInterface">
+            <join-column name="customer_id" referenced-column-name="customer_id"/>
+        </many-to-one>
+        <many-to-one field="demographics" target-entity="Omed\Component\Customer\Model\Demographics">
+            <join-column name="customer_type_id" referenced-column-name="customer_type_id"/>
+        </many-to-one>
+    </entity>
+</doctrine-mapping>
