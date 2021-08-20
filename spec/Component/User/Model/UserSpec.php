@@ -1,5 +1,16 @@
 <?php
 
+/*
+ * This file is part of the Omed project.
+ *
+ * (c) Anthonius Munthi <https://itstoni.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+declare(strict_types=1);
+
 namespace spec\Omed\Component\User\Model;
 
 use Omed\Component\User\Model\User;
@@ -14,66 +25,66 @@ use PhpSpec\ObjectBehavior;
  */
 class UserSpec extends ObjectBehavior
 {
-    function it_is_initializable()
+    public function it_is_initializable()
     {
         $this->shouldHaveType(User::class);
     }
 
-    function it_implements_user_interface()
+    public function it_implements_user_interface()
     {
         $this->shouldImplement(UserInterface::class);
     }
 
-    function it_implements_toggleable_interface()
+    public function it_implements_toggleable_interface()
     {
         $this->shouldImplement(ToggleableInterface::class);
     }
 
-    function it_implements_resource_interface()
+    public function it_implements_resource_interface()
     {
         $this->shouldImplement(ResourceInterface::class);
     }
 
-    function its_id_should_be_mutable()
+    public function its_id_should_be_mutable()
     {
         $this->setId('id');
         $this->getId()->shouldReturn('id');
     }
 
-    function its_username_should_be_mutable()
+    public function its_username_should_be_mutable()
     {
         $this->setUsername('username');
         $this->getUsername()->shouldBe('username');
     }
 
-    function its_email_should_be_mutable()
+    public function its_email_should_be_mutable()
     {
         $this->setEmail('email');
         $this->getEmail()->shouldBe('email');
     }
 
-    function its_password_should_be_mutable()
+    public function its_password_should_be_mutable()
     {
         $password ='password';
         $this->setPassword($password);
         $this->getPassword()->shouldReturn($password);
     }
 
-    function its_plainPassword_should_be_mutable()
+    public function its_plainPassword_should_be_mutable()
     {
         $this->getPlainPassword()->shouldReturn(null);
         $this->setPlainPassword('password');
         $this->getPlainPassword()->shouldReturn('password');
     }
 
-    function its_fullName_should_be_mutable()
+    public function its_fullName_should_be_mutable()
     {
         $this->getFullName()->shouldReturn(null);
         $this->setFullName('full name');
         $this->getFullName()->shouldReturn('full name');
     }
 
-    function it_should_be_toggleable()
+    public function it_should_be_toggleable()
     {
         $this->isEnabled()->shouldReturn(true);
 
@@ -84,4 +95,3 @@ class UserSpec extends ObjectBehavior
         $this->isEnabled()->shouldReturn(true);
     }
 }
-
