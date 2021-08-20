@@ -32,6 +32,7 @@
     },
     "require-dev": {
         "ext-mongodb": "*",
+        "doctrine/doctrine-bundle": "^2.4",
         "doctrine/mongodb-odm": "^2.2",
         "doctrine/orm": "^2.9",
         "friends-of-phpspec/phpspec-code-coverage": "^6.1",
