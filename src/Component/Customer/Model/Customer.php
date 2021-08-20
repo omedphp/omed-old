@@ -15,6 +15,9 @@ namespace Omed\Component\Customer\Model;
 
 use Omed\Contracts\Customer\CustomerInterface;
 
+/**
+ * @psalm-suppress MissingConstructor
+ */
 class Customer implements CustomerInterface
 {
     protected string $id;

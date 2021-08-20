@@ -15,6 +15,9 @@ namespace Omed\Component\Customer\Model;
 
 use Omed\Contracts\Resource\ResourceInterface;
 
+/**
+ * @psalm-suppress MissingConstructor
+ */
 class Demographics implements ResourceInterface
 {
     protected string $id;

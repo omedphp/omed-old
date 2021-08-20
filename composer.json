@@ -24,7 +24,7 @@
     "autoload-dev": {
         "psr-4": {
             "spec\\Omed\\": "./spec",
-            "Functional\\Omed": "./tests/functional"
+            "Functional\\Omed\\": "./tests/functional"
         }
     },
     "require": {
