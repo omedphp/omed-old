@@ -3,6 +3,7 @@
 namespace spec\Omed\Component\User\Model;
 
 use Omed\Component\User\Model\User;
+use Omed\Contracts\Resource\ResourceInterface;
 use Omed\Contracts\Resource\ToggleableInterface;
 use Omed\Contracts\User\UserInterface;
 use PhpSpec\ObjectBehavior;
@@ -26,6 +27,17 @@ class UserSpec extends ObjectBehavior
     function it_implements_toggleable_interface()
     {
         $this->shouldImplement(ToggleableInterface::class);
+    }
+
+    function it_implements_resource_interface()
+    {
+        $this->shouldImplement(ResourceInterface::class);
+    }
+
+    function its_id_should_be_mutable()
+    {
+        $this->setId('id');
+        $this->getId()->shouldReturn('id');
     }
 
     function its_username_should_be_mutable()

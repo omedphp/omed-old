@@ -11,3 +11,5 @@ extensions:
     output:
       clover: build/logs/clover.xml
       html: build/logs/html
+    whitelist:
+      - src

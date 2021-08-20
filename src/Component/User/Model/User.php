@@ -10,7 +10,7 @@ class User implements UserInterface
     use ToggleableTrait;
 
     /**
-     * @var string|null
+     * @var string
      */
     protected string $id;
 
@@ -26,6 +26,14 @@ class User implements UserInterface
     protected ?string $plainPassword = null;
 
     protected ?string $fullName = null;
+
+    /**
+     * @param string $id
+     */
+    public function setId(string $id): void
+    {
+        $this->id = $id;
+    }
 
     public function getId(): string
     {
