@@ -1,5 +1,0 @@
-var
-!var/.gitkeep
-vendor
-composer.lock
-.phpunit.result.cache
