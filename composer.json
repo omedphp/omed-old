@@ -28,6 +28,25 @@
             "Fixtures\\Omed\\": "./tests/fixtures"
         }
     },
+    "scripts": {
+        "clear-sandbox-cache": [
+            "rm -rf ./tests/sandbox/symfony/var/cache"
+        ],
+        "cov-spec": "@php ./vendor/bin/phpspec run --config etc/spec-cov.yml",
+        "cov-phpunit": "@php ./vendor/bin/phpunit --coverage-php ./build/cov/phpunit.cov",
+        "coverage-clover": [
+            "@clear-sandbox-cache",
+            "@cov-spec",
+            "@cov-phpunit",
+            "./vendor/bin/phpcov merge --clover build/logs/clover.xml ./build/cov"
+        ],
+        "coverage-html": [
+            "@clear-sandbox-cache",
+            "@cov-spec",
+            "@cov-phpunit",
+            "./vendor/bin/phpcov merge --html build/html ./build/cov"
+        ]
+    },
     "require": {
         "php": ">=7.4"
     },
@@ -44,6 +63,7 @@
         "phpstan/phpstan": "^0.12.94",
         "phpstan/phpstan-doctrine": "^0.12.43",
         "phpstan/phpstan-phpunit": "^0.12.22",
+        "phpunit/phpcov": "^8.2",
         "phpunit/phpunit": "^9.5",
         "symfony/dotenv": "^4.0 || ^5.0",
         "vimeo/psalm": "^4.9"

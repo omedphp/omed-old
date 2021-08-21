@@ -5,11 +5,8 @@ suites:
 extensions:
   FriendsOfPhpSpec\PhpSpec\CodeCoverage\CodeCoverageExtension:
     format:
-      - clover
-      - html
-      - text
+      - php
     output:
-      clover: build/logs/phpspec/clover.xml
-      html: build/html/phpspec
+      php: build/cov/phpspec.cov
     whitelist:
       - src
