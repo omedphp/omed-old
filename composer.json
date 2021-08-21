@@ -38,13 +38,13 @@
             "@clear-sandbox-cache",
             "@cov-spec",
             "@cov-phpunit",
-            "@phpcov merge --clover build/logs/clover.xml ./build/cov"
+            "./vendor/bin/phpcov merge --clover build/logs/clover.xml ./build/cov"
         ],
         "coverage-html": [
             "@clear-sandbox-cache",
             "@cov-spec",
             "@cov-phpunit",
-            "@phpcov merge --html build/html ./build/cov"
+            "./vendor/bin/phpcov merge --html build/html ./build/cov"
         ]
     },
     "require": {
