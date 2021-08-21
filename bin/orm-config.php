@@ -48,6 +48,11 @@ $rtel->addResolveTargetEntity(
     Omed\Component\Employee\Model\Employee::class,
     []
 );
+$rtel->addResolveTargetEntity(
+    Omed\Contracts\Customer\CustomerInterface::class,
+    Omed\Component\Customer\Model\Customer::class,
+    []
+);
 $entityManager->getEventManager()->addEventSubscriber($rtel);
 
 return ConsoleRunner::createHelperSet($entityManager);
