@@ -94,6 +94,12 @@ jobs:
       - name: Run PHPUnit
         if: true != matrix.coverage
         run: ./vendor/bin/phpunit
+      - name: Install phpcov
+        if: matrix.coverage
+        run: |
+          wget https://phar.phpunit.de/phpcov.phar
+          chmod +x phpcov.phar
+          mv phpcov.phar phpcov
       - name: Run Coverage
         if: matrix.coverage
         run: composer coverage-clover
