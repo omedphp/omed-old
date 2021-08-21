@@ -28,6 +28,25 @@
             "Fixtures\\Omed\\": "./tests/fixtures"
         }
     },
+    "scripts": {
+        "clear-sandbox-cache": [
+            "rm -rf ./tests/sandbox/symfony/var/cache"
+        ],
+        "cov-spec": "@php ./vendor/bin/phpspec run --config etc/spec-coverage.yml",
+        "cov-phpunit": "@php ./vendor/bin/phpunit --coverage-php ./build/cov/phpunit.cov",
+        "coverage-clover": [
+            "@clear-sandbox-cache",
+            "@cov-spec",
+            "@cov-phpunit",
+            "phpcov merge --clover build/logs/clover.xml ./build/cov"
+        ],
+        "coverage-html": [
+            "@clear-sandbox-cache",
+            "@cov-spec",
+            "@cov-phpunit",
+            "phpcov merge --html build/html ./build/cov"
+        ]
+    },
     "require": {
         "php": ">=7.4"
     },
