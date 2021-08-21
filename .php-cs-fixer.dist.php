@@ -75,7 +75,7 @@ return $config
             ],
         ],
         'no_superfluous_elseif' => true,
-        'no_superfluous_phpdoc_tags' => false,
+        'no_superfluous_phpdoc_tags' => true,
         'no_unset_cast' => true,
         'no_unset_on_property' => true,
         'no_useless_else' => true,
@@ -110,6 +110,6 @@ return $config
                 'property',
             ],
         ],
-        'void_return' => false, // BC breaks; to be done in API Platform 3.0
+        'void_return' => false,
     ])
     ->setFinder($finder);

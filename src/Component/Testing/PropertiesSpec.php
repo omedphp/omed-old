@@ -11,15 +11,13 @@
 
 declare(strict_types=1);
 
-namespace spec\Omed\Component\Omed\Component\Model;
+namespace Omed\Component\Testing;
 
-use Omed\Component\Model\Foo;
-use PhpSpec\ObjectBehavior;
-
-class FooSpec extends ObjectBehavior
+trait PropertiesSpec
 {
-    public function it_is_initializable()
+    public function its_properties_should_be_mutable()
     {
-        $this->shouldHaveType(Foo::class);
     }
+
+    abstract protected function getPropertiesToTests(): array;
 }
