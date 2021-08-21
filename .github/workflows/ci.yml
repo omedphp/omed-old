@@ -60,7 +60,7 @@ jobs:
 
   # phpspec tests
   phpspec:
-    name: PHPSpec (PHP ${{ matrix.php }})
+    name: Component Spec (PHP ${{ matrix.php }})
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -92,9 +92,9 @@ jobs:
         run: |
           mkdir -p build/logs/phpunit
           if [ "$COVERAGE" = '1' ]; then
-            ./vendor/bin/phpspec run --config phpspec.coverage.yml
+            ./vendor/bin/phpspec run --config phpspec.coverage.yml spec/component
           else
-            ./vendor/bin/phpspec run
+            ./vendor/bin/phpspec run spec/component
           fi
       - name: Upload coverage results to Codecov
         if: matrix.coverage

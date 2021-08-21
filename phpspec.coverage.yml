@@ -9,7 +9,7 @@ extensions:
       - html
       - text
     output:
-      clover: build/logs/clover.xml
+      clover: build/logs/phpspec.xml
       html: build/logs/html
     whitelist:
       - src

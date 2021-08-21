@@ -2,3 +2,6 @@ suites:
   omed_component:
     namespace: Omed
     psr4_prefix: Omed
+  #omed_bundle:
+  #  namespace: Omed\Bundle
+  #  psr4_prefix: Omed\Bundle
