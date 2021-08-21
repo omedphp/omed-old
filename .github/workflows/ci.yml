@@ -92,7 +92,7 @@ jobs:
         run: |
           mkdir -p build/logs/phpunit
           if [ "$COVERAGE" = '1' ]; then
-            ./vendor/bin/phpspec run --config phpspec.coverage.yml spec/component
+            ./vendor/bin/phpspec run --config phpspec-override.yml spec/component
           else
             ./vendor/bin/phpspec run spec/component
           fi
@@ -154,7 +154,7 @@ jobs:
         run: |
           mkdir -p build/logs/phpunit
           if [ "$COVERAGE" = '1' ]; then
-            ./vendor/bin/phpspec run --config phpspec.coverage.yml spec/bundle
+            ./vendor/bin/phpspec run --config phpspec-override.yml spec/bundle
           else
             ./vendor/bin/phpspec run spec/bundle
           fi
@@ -171,6 +171,6 @@ jobs:
         uses: codecov/codecov-action@v1
         with:
           name: phpunit-php${{ matrix.php }}
-          flags: php
+          flags: symfony
           fail_ci_if_error: true
         continue-on-error: true
