@@ -101,7 +101,6 @@ jobs:
         uses: codecov/codecov-action@v1
         with:
           name: phpunit-php${{ matrix.php }}
-          flags: phpspec
           fail_ci_if_error: true
         continue-on-error: true
 
@@ -171,6 +170,5 @@ jobs:
         uses: codecov/codecov-action@v1
         with:
           name: phpunit-php${{ matrix.php }}
-          flags: symfony
           fail_ci_if_error: true
         continue-on-error: true
