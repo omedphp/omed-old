@@ -102,7 +102,6 @@ jobs:
         with:
           name: phpunit-php${{ matrix.php }}
           fail_ci_if_error: true
-          flags: spec
         continue-on-error: true
 
 
@@ -172,5 +171,4 @@ jobs:
         with:
           name: phpunit-php${{ matrix.php }}
           fail_ci_if_error: true
-          flags: integration
         continue-on-error: true
