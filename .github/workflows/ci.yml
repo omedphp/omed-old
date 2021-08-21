@@ -94,14 +94,6 @@ jobs:
       - name: Run PHPUnit
         if: true != matrix.coverage
         run: ./vendor/bin/phpunit
-      - name: Install phpcov
-        if: matrix.coverage
-        run: |
-          wget https://phar.phpunit.de/phpcov.phar
-          chmod +x phpcov.phar
-          mkdir -p $HOME/.local/bin
-          mv phpcov.phar $HOME/.local/bin/phpcov
-          echo ::add-path::$HOME/.local/bin
       - name: Run Coverage
         if: matrix.coverage
         run: composer coverage-clover
