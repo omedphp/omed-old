@@ -32,7 +32,7 @@
         "clear-sandbox-cache": [
             "rm -rf ./tests/sandbox/symfony/var/cache"
         ],
-        "cov-spec": "@php ./vendor/bin/phpspec run --config etc/spec-coverage.yml",
+        "cov-spec": "@php ./vendor/bin/phpspec run --config etc/spec-cov.yml",
         "cov-phpunit": "@php ./vendor/bin/phpunit --coverage-php ./build/cov/phpunit.cov",
         "coverage-clover": [
             "@clear-sandbox-cache",
