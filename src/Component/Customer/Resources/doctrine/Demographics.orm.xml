@@ -1,6 +1,0 @@
-<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping">
-    <entity name="Omed\Component\Customer\Model\Demographics" table="customer_demographics">
-        <id name="id" column="customer_type_id" type="string"/>
-        <field name="description" column="customer_desc" type="text" nullable="true"/>
-    </entity>
-</doctrine-mapping>
