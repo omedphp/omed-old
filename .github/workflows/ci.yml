@@ -104,3 +104,71 @@ jobs:
           flags: phpspec
           fail_ci_if_error: true
         continue-on-error: true
+
+
+  # symfony integration
+  symfony:
+    name: Symfony (PHP-${{ matrix.php }} - Symfony-${{ matrix.symfony }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php: [ "8.0", "7.4" ]
+        symfony: ["^4.4", "^5.3"]
+        include:
+          - php: '8.0'
+            symfony: 5.3
+            coverage: true
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "${{ matrix.php }}"
+          tools: symfony
+          coverage: pcov
+      - name: Enable code coverage
+        if: matrix.coverage
+        run: echo "COVERAGE=1" >> $GITHUB_ENV
+      - name: Restrict Symfony version
+        if: matrix.symfony != ''
+        run: |
+            composer global require --no-progress --no-scripts --no-plugins "symfony/flex:^1.10"
+            composer config extra.symfony.require "${{ matrix.symfony }}"
+      - name: Get Composer cache directory
+        id: composer-cache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+      - name: Cache Composer cache
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-php-${{ matrix.php }}-symfony-${{ matrix.symfony }}-composer-${{ hashFiles('**/composer.json') }}
+          restore-keys: |
+            ${{ runner.os }}-php-${{ matrix.php }}-symfony-${{ matrix.symfony }}-composer-
+      - name: Install dependencies
+        run: composer update --no-interaction --no-scripts
+      - name: Run PHPSpec
+        run: |
+          mkdir -p build/logs/phpunit
+          if [ "$COVERAGE" = '1' ]; then
+            ./vendor/bin/phpspec run --config phpspec.coverage.yml spec/bundle
+          else
+            ./vendor/bin/phpspec run spec/bundle
+          fi
+      - name: PHPUnit
+        run: |
+          mkdir -p build/logs/phpunit
+          if [ "$COVERAGE" = '1' ]; then
+            ./vendor/bin/phpunit --testsuite symfony --coverage-clover build/logs/phpunit/clover.xml --log-junit build/logs/phpunit/junit.xml --colors=always
+          else
+            ./vendor/bin/phpunit --testsuite symfony --log-junit build/logs/phpunit/junit.xml --colors=always
+          fi
+      - name: Upload coverage results to Codecov
+        if: matrix.coverage
+        uses: codecov/codecov-action@v1
+        with:
+          name: phpunit-php${{ matrix.php }}
+          flags: php
+          fail_ci_if_error: true
+        continue-on-error: true

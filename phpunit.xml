@@ -5,7 +5,6 @@
          cacheResultFile=".phpunit.cache/test-results"
          executionOrder="depends,defects"
          forceCoversAnnotation="true"
-         beStrictAboutCoversAnnotation="true"
          beStrictAboutOutputDuringTests="true"
          beStrictAboutTodoAnnotatedTests="true"
          failOnRisky="true"
@@ -13,7 +12,7 @@
          verbose="true">
     <testsuites>
         <testsuite name="symfony">
-            <directory>./tests/functional</directory>
+            <directory>./tests/functional/Symfony</directory>
         </testsuite>
     </testsuites>
 

@@ -17,7 +17,7 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 /**
- * @covers \Omed\Component\User\Model\User
+ * @covers \Omed\Bundle\Core\Application\Kernel
  */
 class KernelTest extends KernelTestCase
 {
