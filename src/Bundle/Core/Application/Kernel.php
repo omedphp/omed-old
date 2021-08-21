@@ -52,9 +52,6 @@ class Kernel extends BaseKernel
         }
     }
 
-    /**
-     * @param ContainerConfigurator $container
-     */
     protected function configureContainer(ContainerConfigurator $container): void
     {
         $env = $this->getEnvironment();
