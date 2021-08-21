@@ -162,9 +162,9 @@ jobs:
         run: |
           mkdir -p build/logs/phpunit
           if [ "$COVERAGE" = '1' ]; then
-            ./vendor/bin/phpunit --testsuite symfony --coverage-clover build/logs/phpunit/clover.xml --log-junit build/logs/phpunit/junit.xml --colors=always
+            ./vendor/bin/phpunit --testsuite symfony --coverage-clover build/logs/phpunit.xml --log-junit build/phpunit/junit.xml --colors=always
           else
-            ./vendor/bin/phpunit --testsuite symfony --log-junit build/logs/phpunit/junit.xml --colors=always
+            ./vendor/bin/phpunit --testsuite symfony --log-junit build/phpunit/junit.xml --colors=always
           fi
       - name: Upload coverage results to Codecov
         if: matrix.coverage
