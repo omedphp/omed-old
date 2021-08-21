@@ -19,6 +19,10 @@ use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigura
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
 
+/**
+ * @psalm-suppress UnresolvableInclude
+ * @psalm-suppress PropertyNotSetInConstructor
+ */
 class Kernel extends BaseKernel
 {
     use MicroKernelTrait;
@@ -36,17 +40,21 @@ class Kernel extends BaseKernel
         return $this->components;
     }
 
-    protected function initializeBundles()
+    protected function initializeBundles(): void
     {
         parent::initializeBundles();
 
         $this->components = [];
 
+        /** @var ComponentInterface $component */
         foreach ($this->registerComponents() as $component) {
             $this->components[$component->getName()] = $component;
         }
     }
 
+    /**
+     * @param ContainerConfigurator $container
+     */
     protected function configureContainer(ContainerConfigurator $container): void
     {
         $env = $this->getEnvironment();
@@ -61,9 +69,12 @@ class Kernel extends BaseKernel
 
     /**
      * @return iterable|ComponentInterface[]
+     * @psalm-suppress UnresolvableInclude
+     * @psalm-suppress MixedMethodCall
      */
     protected function registerComponents(): iterable
     {
+        /** @var array<class-string> $contents */
         $contents = require $this->getProjectDir().'/config/components.php';
         foreach ($contents as $class) {
             yield new $class();

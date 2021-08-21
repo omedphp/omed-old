@@ -25,7 +25,7 @@ trait ResourceComponentTrait
         $this->configure();
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $r         = new \ReflectionClass(__CLASS__);
         $inflector = InflectorFactory::create()->build();

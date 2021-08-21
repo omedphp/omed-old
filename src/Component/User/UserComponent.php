@@ -16,6 +16,9 @@ namespace Omed\Component\User;
 use Omed\Contracts\Resource\ComponentInterface;
 use Omed\Contracts\Resource\ResourceComponentTrait;
 
+/**
+ * @psalm-suppress PropertyNotSetInConstructor
+ */
 class UserComponent implements ComponentInterface
 {
     use ResourceComponentTrait;
