@@ -117,7 +117,7 @@ jobs:
         symfony: ["^4.4", "^5.3"]
         include:
           - php: '8.0'
-            symfony: 5.3
+            symfony: '^5.3'
             coverage: true
     steps:
       - name: Checkout code
@@ -148,7 +148,7 @@ jobs:
             ${{ runner.os }}-php-${{ matrix.php }}-symfony-${{ matrix.symfony }}-composer-
       - name: Install dependencies
         run: |
-          composer remove --dev orchestral/testbench
+          composer remove --dev orchestra/testbench
           composer update --no-interaction --no-scripts
       - name: Run PHPSpec
         run: |
